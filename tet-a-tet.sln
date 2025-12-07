@@ -1,0 +1,19 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tet-a-tet", "tet-a-tet.csproj", "{96DE6B61-B624-4F1A-9614-4F0E984032BC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	Debug|Any CPU = Debug|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{96DE6B61-B624-4F1A-9614-4F0E984032BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96DE6B61-B624-4F1A-9614-4F0E984032BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96DE6B61-B624-4F1A-9614-4F0E984032BC}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{96DE6B61-B624-4F1A-9614-4F0E984032BC}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{96DE6B61-B624-4F1A-9614-4F0E984032BC}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{96DE6B61-B624-4F1A-9614-4F0E984032BC}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+EndGlobal

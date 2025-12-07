@@ -1,87 +1,35 @@
 using Godot;
+using System;
 
 public partial class Player : CharacterBody2D
 {
-    [Export] public float Speed { get; set; } = 300.0f;
-    [Export] public PackedScene BulletScene { get; set; }
-    [Export] public int MaxHealth { get; set; } = 3;
+	public const float Speed = 300.0f;
+	public const float JumpVelocity = -400.0f;
+	[Export] public AnimatedSprite2D Bunny;
+	public override void _Ready()
+	{
+		Bunny.Play("idle");
+	}
 
-    [Signal] public delegate void HealthChangedEventHandler(int health);
-    [Signal] public delegate void PlayerDiedEventHandler();
+	public override void _PhysicsProcess(double delta)
+	{
+		Vector2 velocity = Velocity;
 
-    private int _health;
-    private float _shootCooldown = 0.0f;
-    private const float ShootDelay = 0.2f;
+		// Get the input direction and handle the movement/deceleration.
+		// As good practice, you should replace UI actions with custom gameplay actions.
+		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+		if (direction != Vector2.Zero)
+		{
+			velocity.X = direction.X * Speed;
+			velocity.Y = direction.Y * Speed;
+		}
+		else
+		{
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
+			velocity.Y = Mathf.MoveToward(Velocity.Y, 0, Speed);
+		}
 
-    public override void _Ready()
-    {
-        _health = MaxHealth;
-        //EmitSignal(SignalName.HealthChanged, _health);
-    }
-
-    public override void _Process(double delta)
-    {
-        // Обработка стрельбы
-        _shootCooldown -= (float)delta;
-
-        /*if (Input.IsActionPressed("shoot") && _shootCooldown <= 0)
-        {
-            //Shoot();
-            _shootCooldown = ShootDelay;
-        }*/
-    }
-
-    public override void _PhysicsProcess(double delta)
-    {
-        // Обработка движения
-        Vector2 direction = Input.GetVector("move_left", "move_right", "ui_up", "ui_down");
-        Velocity = direction * Speed;
-
-        MoveAndSlide();
-
-        // Ограничиваем движение в пределах экрана
-        Vector2 viewportSize = GetViewportRect().Size;
-        Vector2 position = Position;
-
-        position.X = Mathf.Clamp(position.X, 0, viewportSize.X);
-        position.Y = Mathf.Clamp(position.Y, 0, viewportSize.Y);
-
-        Position = position;
-    }
-
-    /*private void Shoot()
-    {
-        if (BulletScene != null)
-        {
-            var bullet = BulletScene.Instantiate<Bullet>();
-            GetParent().AddChild(bullet);
-            bullet.Position = Position + new Vector2(0, -30); // Позиция перед кораблем
-            bullet.Launch(new Vector2(0, -1)); // Направление вверх
-        }
-    }*/
-
-    public void TakeDamage()
-    {
-        _health--;
-        EmitSignal(SignalName.HealthChanged, _health);
-
-        if (_health <= 0)
-        {
-            Die();
-        }
-        else
-        {
-            // Визуальный эффект получения урона
-            var tween = CreateTween();
-            tween.TweenProperty(this, "modulate", Colors.Red, 0.1f);
-            tween.TweenProperty(this, "modulate", Colors.White, 0.1f);
-        }
-    }
-
-    private void Die()
-    {
-        //EmitSignal(SignalName.PlayerDied);
-        QueueFree();
-    }
+		Velocity = velocity;
+		MoveAndSlide();
+	}
 }
-
