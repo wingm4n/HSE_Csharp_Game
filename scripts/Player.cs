@@ -5,7 +5,10 @@ public partial class Player : CharacterBody2D
 {
 	public const float Speed = 300.0f;
 	public const float JumpVelocity = -400.0f;
+	
 	[Export] public AnimatedSprite2D Bunny;
+	[Export] public Node2D Gun;
+	
 	public override void _Ready()
 	{
 		Bunny.Play("idle");

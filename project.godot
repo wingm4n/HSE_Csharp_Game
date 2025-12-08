@@ -18,3 +18,7 @@ config/icon="res://icon.svg"
 [dotnet]
 
 project/assembly_name="tet-a-tet"
+
+[rendering]
+
+textures/light_projectors/filter=0
