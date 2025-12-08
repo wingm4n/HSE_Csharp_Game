@@ -3,8 +3,12 @@ using System;
 
 public partial class Player : CharacterBody2D
 {
-	public const float Speed = 1000.0f;
+	public const float Speed = 300.0f;
+	public const float JumpVelocity = -400.0f;
+	
 	[Export] public AnimatedSprite2D Bunny;
+	[Export] public Node2D Gun;
+	
 	public override void _Ready()
 	{
 		Bunny.Play("idle");
@@ -26,13 +30,6 @@ public partial class Player : CharacterBody2D
 		{
 			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
 			velocity.Y = Mathf.MoveToward(Velocity.Y, 0, Speed);
-		}
-		
-		if (direction.X > 0){
-			Bunny.FlipH = true;
-		}
-		else if (direction.X < 0){
-			Bunny.FlipH = false;
 		}
 
 		Velocity = velocity;

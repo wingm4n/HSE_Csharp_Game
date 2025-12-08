@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=4 uid="uid://veyokj1cfylg"]
+[gd_scene load_steps=7 format=4 uid="uid://veyokj1cfylg"]
 
 [ext_resource type="PackedScene" uid="uid://cxja2qbsil6yj" path="res://player.tscn" id="1_u52ul"]
 [ext_resource type="Texture2D" uid="uid://bdulqosrv6nd2" path="res://Sprout Lands/Tilesets/Hills.png" id="2_vonw3"]
 [ext_resource type="PackedScene" uid="uid://dh1hs0suyp8l2" path="res://rabbit.tscn" id="3_oi3di"]
+[ext_resource type="PackedScene" uid="uid://16nunpgh7450" path="res://gun.tscn" id="4_0b4ue"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oi3di"]
 texture = ExtResource("2_vonw3")
@@ -133,5 +134,8 @@ tile_set = SubResource("TileSet_0b4ue")
 [node name="Player" parent="." instance=ExtResource("1_u52ul")]
 position = Vector2(-3, -19)
 
+[node name="Gun" parent="Player" instance=ExtResource("4_0b4ue")]
+position = Vector2(50, 0)
+
 [node name="Rabbit" parent="." instance=ExtResource("3_oi3di")]
-position = Vector2(826, -314)
+position = Vector2(695, -310)
