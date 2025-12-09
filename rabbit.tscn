@@ -189,12 +189,13 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eqa7p"]
-radius = 492.0498
+radius = 1251.978
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bmu3n"]
 radius = 69.00725
 
 [node name="Rabbit" type="CharacterBody2D" node_paths=PackedStringArray("RabbitAnim")]
+disable_mode = 2
 script = ExtResource("1_msxim")
 RabbitAnim = NodePath("RabbitAnim")
 

@@ -138,4 +138,13 @@ position = Vector2(-3, -19)
 position = Vector2(50, 0)
 
 [node name="Rabbit" parent="." instance=ExtResource("3_oi3di")]
-position = Vector2(695, -310)
+position = Vector2(647, -396)
+
+[node name="Rabbit2" parent="." instance=ExtResource("3_oi3di")]
+position = Vector2(-563, -360)
+
+[node name="Rabbit3" parent="." instance=ExtResource("3_oi3di")]
+position = Vector2(43, -423)
+
+[node name="Rabbit4" parent="." instance=ExtResource("3_oi3di")]
+position = Vector2(545, -43)

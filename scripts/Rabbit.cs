@@ -12,6 +12,8 @@ public partial class Rabbit : CharacterBody2D
 	private bool chaseState = false;
 
 	private bool isExploiding = false;
+
+	private CollisionShape2D _collisionShape;
 	
 	[Export] public AnimatedSprite2D RabbitAnim;
 	public override void _Ready()
@@ -21,8 +23,8 @@ public partial class Rabbit : CharacterBody2D
 		_detect.Connect(Area2D.SignalName.BodyEntered, Callable.From<Node>(OnBodyEntered));
 		Area2D _detect_boom = GetNode<Area2D>($"./Detector_BOOM");
 		_detect_boom.Connect(Area2D.SignalName.BodyEntered, Callable.From<Node>(OnBoomEntered));
-
-		RabbitAnim.Play("move");
+        _collisionShape = GetNode<CollisionShape2D>($"./CollisionShape2D");
+        RabbitAnim.Play("move");
 	}
 	public override void _PhysicsProcess(double delta)
 	{
@@ -80,11 +82,11 @@ public partial class Rabbit : CharacterBody2D
 		}
 	}
 
-	private async void Death()
-    {	
-		RabbitAnim.Play("death");
-		await ToSignal(RabbitAnim, "animation_finished");
-		
+	public async void Death()
+    {
+        RabbitAnim.Play("death");
+        _collisionShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
+        await ToSignal(RabbitAnim, "animation_finished");
 		QueueFree();
     }
 

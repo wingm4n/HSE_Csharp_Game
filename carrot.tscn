@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dcnaj5d51glwt"]
+
+[ext_resource type="Texture2D" uid="uid://d02qaop7br7fq" path="res://sprites/carrot.png" id="1_1sbab"]
+[ext_resource type="Script" uid="uid://3jn3wbjmmm68" path="res://scripts/Carrot.cs" id="1_l7vel"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ecnhr"]
+radius = 22.0
+height = 44.0
+
+[node name="Carrot" type="Area2D"]
+disable_mode = 2
+script = ExtResource("1_l7vel")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ecnhr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, 5.000001)
+rotation = -3.9043016
+scale = Vector2(0.04706973, 0.04780417)
+texture = ExtResource("1_1sbab")

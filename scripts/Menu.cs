@@ -25,7 +25,7 @@ public partial class Menu : Node2D
 
 	private void MenuPlayPressed()
 	{
-		GetTree().ChangeSceneToFile("res://level.tscn");
+		GetTree().ChangeSceneToFile("res://field.tscn");
 	}
 
 
