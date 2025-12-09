@@ -1,20 +1,33 @@
 using Godot;
 using System;
+using System.Reflection.Metadata;
+using System.Threading.Tasks;
 
 public partial class Rabbit : CharacterBody2D
 {
 	public const float Speed = 100.0f;
+	public const float ExploisonRadius = 100.0f;
+	public const int ExploisonDamage = 15;
 
 	private bool chaseState = false;
+
+	private bool isExploiding = false;
+	
 	[Export] public AnimatedSprite2D RabbitAnim;
 	public override void _Ready()
-	{
+	{	
+
 		Area2D _detect = GetNode<Area2D>($"./Detector");
 		_detect.Connect(Area2D.SignalName.BodyEntered, Callable.From<Node>(OnBodyEntered));
+		Area2D _detect_boom = GetNode<Area2D>($"./Detector_BOOM");
+		_detect_boom.Connect(Area2D.SignalName.BodyEntered, Callable.From<Node>(OnBoomEntered));
+
 		RabbitAnim.Play("move");
 	}
 	public override void _PhysicsProcess(double delta)
 	{
+		if (isExploiding) return;
+
 		CharacterBody2D _player = GetNode<CharacterBody2D>($"../Player");
 		Vector2 velocity = Velocity;
 
@@ -52,5 +65,28 @@ public partial class Rabbit : CharacterBody2D
 			chaseState = true;
 		}
 	}
+	private void OnBoomEntered(Node body)
+	{
+		if (!(body is CharacterBody2D))
+		{
+			return;
+		}
+
+		if (body.Name == "Player")
+		{	
+
+			isExploiding = true;
+			Death();
+		}
+	}
+
+	private async void Death()
+    {	
+		RabbitAnim.Play("death");
+		await ToSignal(RabbitAnim, "animation_finished");
+		
+		QueueFree();
+    }
+
 
 }

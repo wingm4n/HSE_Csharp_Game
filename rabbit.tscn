@@ -1,10 +1,39 @@
-[gd_scene load_steps=23 format=3 uid="uid://dh1hs0suyp8l2"]
+[gd_scene load_steps=32 format=3 uid="uid://dh1hs0suyp8l2"]
 
 [ext_resource type="Texture2D" uid="uid://cvjxg7xclp5or" path="res://sprites/rabbit.png" id="1_eqa7p"]
 [ext_resource type="Script" uid="uid://bnobktset7i1w" path="res://scripts/Rabbit.cs" id="1_msxim"]
+[ext_resource type="Texture2D" uid="uid://bgkw5dg2tumna" path="res://sprites/spritesheet (2)-Photoroom (2).png" id="2_bmu3n"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_32qq8"]
 size = Vector2(105, 74)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oabgk"]
+atlas = ExtResource("2_bmu3n")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r7juo"]
+atlas = ExtResource("2_bmu3n")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vm2cn"]
+atlas = ExtResource("2_bmu3n")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tok4a"]
+atlas = ExtResource("2_bmu3n")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a81ei"]
+atlas = ExtResource("2_bmu3n")
+region = Rect2(768, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvu5s"]
+atlas = ExtResource("2_bmu3n")
+region = Rect2(960, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a0s5i"]
+atlas = ExtResource("2_bmu3n")
+region = Rect2(1152, 0, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_msxim"]
 atlas = ExtResource("1_eqa7p")
@@ -74,8 +103,34 @@ region = Rect2(400, 206, 98, 103)
 atlas = ExtResource("1_eqa7p")
 region = Rect2(500, 206, 98, 103)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_eqa7p"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_bmu3n"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oabgk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r7juo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vm2cn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tok4a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a81ei")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kvu5s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a0s5i")
+}],
+"loop": false,
+"name": &"death",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_msxim")
@@ -134,7 +189,10 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eqa7p"]
-radius = 365.56805
+radius = 492.0498
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bmu3n"]
+radius = 69.00725
 
 [node name="Rabbit" type="CharacterBody2D" node_paths=PackedStringArray("RabbitAnim")]
 script = ExtResource("1_msxim")
@@ -145,12 +203,18 @@ position = Vector2(-1.5, 4)
 shape = SubResource("RectangleShape2D_32qq8")
 
 [node name="RabbitAnim" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -1)
-sprite_frames = SubResource("SpriteFrames_eqa7p")
+physics_interpolation_mode = 2
+position = Vector2(3.000002, -2.999999)
+scale = Vector2(1.3066603, 0.9769417)
+sprite_frames = SubResource("SpriteFrames_bmu3n")
 animation = &"move"
-frame_progress = 0.15579668
 
 [node name="Detector" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detector"]
 shape = SubResource("CircleShape2D_eqa7p")
+
+[node name="Detector_BOOM" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detector_BOOM"]
+shape = SubResource("CircleShape2D_bmu3n")
