@@ -8,71 +8,6 @@
 radius = 22.0
 height = 44.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_l7vel"]
-radius = 196.04082
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7ucno"]
-atlas = ExtResource("3_xyubp")
-region = Rect2(0, 0, 190, 192)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1c571"]
-atlas = ExtResource("3_xyubp")
-region = Rect2(190, 0, 190, 192)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kobi7"]
-atlas = ExtResource("3_xyubp")
-region = Rect2(380, 0, 190, 192)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_drq1q"]
-atlas = ExtResource("3_xyubp")
-region = Rect2(570, 0, 190, 192)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mgx1p"]
-atlas = ExtResource("3_xyubp")
-region = Rect2(760, 0, 190, 192)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tyvcm"]
-atlas = ExtResource("3_xyubp")
-region = Rect2(950, 0, 190, 192)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xyubp"]
-atlas = ExtResource("1_1sbab")
-region = Rect2(0, 0, 1920, 1920)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_l7vel"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7ucno")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1c571")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kobi7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_drq1q")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mgx1p")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tyvcm")
-}],
-"loop": false,
-"name": &"boom",
-"speed": 8.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xyubp")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
-}]
-
 [node name="Carrot" type="Area2D"]
 disable_mode = 2
 script = ExtResource("1_l7vel")
@@ -85,17 +20,3 @@ position = Vector2(1, 5.000001)
 rotation = -3.9043016
 scale = Vector2(0.04706973, 0.04780417)
 texture = ExtResource("1_1sbab")
-
-[node name="ExplosionShape" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_l7vel")
-disabled = true
-
-[node name="BoomAnim" type="AnimatedSprite2D" parent="."]
-visible = false
-position = Vector2(3, -1.9999981)
-rotation = -3.8868482
-scale = Vector2(2.5350728, 2.5350726)
-sprite_frames = SubResource("SpriteFrames_l7vel")
-animation = &"boom"
-frame = 5
-frame_progress = 1.0

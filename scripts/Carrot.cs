@@ -4,12 +4,9 @@ using System;
 public partial class Carrot : Area2D
 {
 	[Export] public float Speed { get; set; } = 300.0f;
-	private AnimatedSprite2D BoomAnim;
 	private Rect2 gamefieldBounds = new Rect2(-2000, -2000, 5000, 5000);
-	private bool stopped = false;
 
 	private Vector2 _direction = Vector2.Up;
-	public float ExplosionRadius { get; set; } = 200.0f;
 
 	public override void _Ready()
 	{
@@ -24,10 +21,7 @@ public partial class Carrot : Area2D
 
 	public override void _Process(double delta)
 	{
-		if (!stopped)
-		{
-			GlobalPosition += _direction * Speed * (float)delta;
-		}
+		GlobalPosition += _direction * Speed * (float)delta;
 
 		if (!gamefieldBounds.HasPoint(GlobalPosition))
 		{

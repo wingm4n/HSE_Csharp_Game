@@ -17,13 +17,22 @@ public partial class Rabbit : CharacterBody2D
 	private CollisionShape2D _collisionShape;
 	
 	[Export] public AnimatedSprite2D RabbitAnim;
+	[Export] public Player _player;
+	
 	public override void _Ready()
 	{
         AddToGroup("enemies");
         Area2D _detect = GetNode<Area2D>($"./Detector");
 		_detect.Connect(Area2D.SignalName.BodyEntered, Callable.From<Node>(OnBodyEntered));
+
 		Area2D _detect_boom = GetNode<Area2D>($"./Detector_BOOM");
 		_detect_boom.Connect(Area2D.SignalName.BodyEntered, Callable.From<Node>(OnBoomEntered));
+
+		//Area2D _detect_player = GetNode<Area2D>($"../Player");
+		//_detect_player.Connect(Area2D.SignalName.BodyEntered, Callable.From<Node>(OnBoomEntered));
+		
+		_player = GetTree().Root.FindChild("Player", true, false) as Player;
+
         _collisionShape = GetNode<CollisionShape2D>($"./CollisionShape2D");
         RabbitAnim.Play("move");
 	}
@@ -77,8 +86,8 @@ public partial class Rabbit : CharacterBody2D
 		}
 
 		if (body.Name == "Player")
-		{	
-
+        {
+            _player.BunnyTakeDamage();
 			isExploiding = true;
 			Death();
 		}

@@ -5,6 +5,8 @@ public partial class Player : CharacterBody2D
 {
 	public const float Speed = 300.0f;
 	public const float JumpVelocity = -400.0f;
+
+	public int BunnyHealth = 100;
 	
 	[Export] public AnimatedSprite2D Bunny;
 	[Export] public Node2D Gun;
@@ -13,6 +15,11 @@ public partial class Player : CharacterBody2D
 	{
 		Bunny.Play("idle");
 	}
+
+	public void BunnyTakeDamage()
+    {
+        BunnyHealth = BunnyHealth - 10;
+    }
 
 	public override void _PhysicsProcess(double delta)
 	{
