@@ -1,8 +1,9 @@
-[gd_scene load_steps=32 format=3 uid="uid://dh1hs0suyp8l2"]
+[gd_scene load_steps=33 format=3 uid="uid://dh1hs0suyp8l2"]
 
 [ext_resource type="Texture2D" uid="uid://cvjxg7xclp5or" path="res://sprites/rabbit.png" id="1_eqa7p"]
 [ext_resource type="Script" uid="uid://bnobktset7i1w" path="res://scripts/Rabbit.cs" id="1_msxim"]
 [ext_resource type="Texture2D" uid="uid://bgkw5dg2tumna" path="res://sprites/spritesheet (2)-Photoroom (2).png" id="2_bmu3n"]
+[ext_resource type="AudioStream" uid="uid://dxjnuabvughai" path="res://audio game/shotgun-shooting-things-105837 (mp3cut.net).wav" id="4_bsnlv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_32qq8"]
 size = Vector2(105, 74)
@@ -219,3 +220,8 @@ shape = SubResource("CircleShape2D_eqa7p")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detector_BOOM"]
 shape = SubResource("CircleShape2D_bmu3n")
+
+[node name="ShotSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_bsnlv")
+volume_db = 6.058
+pitch_scale = 6.0

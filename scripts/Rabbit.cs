@@ -21,8 +21,8 @@ public partial class Rabbit : CharacterBody2D
 	
 	public override void _Ready()
 	{
-        AddToGroup("enemies");
-        Area2D _detect = GetNode<Area2D>($"./Detector");
+		AddToGroup("enemies");
+		Area2D _detect = GetNode<Area2D>($"./Detector");
 		_detect.Connect(Area2D.SignalName.BodyEntered, Callable.From<Node>(OnBodyEntered));
 
 		Area2D _detect_boom = GetNode<Area2D>($"./Detector_BOOM");
@@ -33,8 +33,8 @@ public partial class Rabbit : CharacterBody2D
 		
 		_player = GetTree().Root.FindChild("Player", true, false) as Player;
 
-        _collisionShape = GetNode<CollisionShape2D>($"./CollisionShape2D");
-        RabbitAnim.Play("move");
+		_collisionShape = GetNode<CollisionShape2D>($"./CollisionShape2D");
+		RabbitAnim.Play("move");
 	}
 	public override void _PhysicsProcess(double delta)
 	{
@@ -86,28 +86,29 @@ public partial class Rabbit : CharacterBody2D
 		}
 
 		if (body.Name == "Player")
-        {
-            _player.BunnyTakeDamage();
+		{
+			_player.BunnyTakeDamage();
 			isExploiding = true;
 			Death();
 		}
 	}
 
 	public async void Death()
-    {
-        RabbitAnim.Play("death");
-        _collisionShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
-        await ToSignal(RabbitAnim, "animation_finished");
+	{
+		RabbitAnim.Play("death");
+		GetNode<AudioStreamPlayer2D>("ShotSound").Play();
+		_collisionShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
+		await ToSignal(RabbitAnim, "animation_finished");
 		QueueFree();
-    }
+	}
 
-    public void VarDeath(Vector2 coord, float radius)
-    {
+	public void VarDeath(Vector2 coord, float radius)
+	{
 		if (coord.DistanceTo(GlobalPosition) < radius)
 		{
 			this.Death();
 		}
-    }
+	}
 
 
 }

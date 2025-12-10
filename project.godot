@@ -11,9 +11,15 @@ config_version=5
 [application]
 
 config/name="tet-a-tet"
-run/main_scene="uid://dklwt0m217mi4"
+run/main_scene="uid://dwbcr0vmcwcru"
 config/features=PackedStringArray("4.5", "C#", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_height=718
+window/size/mode=3
+window/size/resizable=false
 
 [dotnet]
 

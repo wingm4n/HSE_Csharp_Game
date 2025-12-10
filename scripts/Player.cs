@@ -7,19 +7,29 @@ public partial class Player : CharacterBody2D
 	public const float JumpVelocity = -400.0f;
 
 	public int BunnyHealth = 100;
-	
+	private AudioStreamPlayer _musicPlayer;
+	private Godot.Label _gameEnd;
+
 	[Export] public AnimatedSprite2D Bunny;
 	[Export] public Node2D Gun;
 	
 	public override void _Ready()
 	{
+		_musicPlayer = GetNode<AudioStreamPlayer>($"../GameMusic");
+		_musicPlayer.ProcessMode = ProcessModeEnum.Always;
+		_gameEnd = GetNode<Godot.Label>($"./GameEnd");
 		Bunny.Play("idle");
 	}
 
 	public void BunnyTakeDamage()
-    {
-        BunnyHealth = BunnyHealth - 10;
-    }
+	{
+		BunnyHealth = BunnyHealth - 10;
+		if (BunnyHealth == 0)
+		{
+			_gameEnd.Visible = true;
+			GetTree().Paused = true;
+		}
+	}
 
 	public override void _PhysicsProcess(double delta)
 	{

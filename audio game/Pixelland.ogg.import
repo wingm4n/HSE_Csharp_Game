@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bloc0vb7gkv73"
+path="res://.godot/imported/Pixelland.ogg-28b74b073efd2d34c8db93c8c9aa4130.oggvorbisstr"
+
+[deps]
+
+source_file="res://audio game/Pixelland.ogg"
+dest_files=["res://.godot/imported/Pixelland.ogg-28b74b073efd2d34c8db93c8c9aa4130.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
