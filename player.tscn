@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cxja2qbsil6yj"]
+[gd_scene load_steps=17 format=3 uid="uid://cxja2qbsil6yj"]
 
 [ext_resource type="Texture2D" uid="uid://kpp8ednqvcde" path="res://sprites/bunny.png" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://bnyvkexodje7m" path="res://scripts/Player.cs" id="1_onrkg"]
@@ -31,6 +31,30 @@ region = Rect2(675, 10, 150, 253)
 atlas = ExtResource("1_4flbx")
 region = Rect2(835, 10, 150, 253)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_dw050"]
+atlas = ExtResource("1_4flbx")
+region = Rect2(30, 768, 142, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b26j0"]
+atlas = ExtResource("1_4flbx")
+region = Rect2(178, 768, 141, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n7ghd"]
+atlas = ExtResource("1_4flbx")
+region = Rect2(330, 768, 160, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nvl01"]
+atlas = ExtResource("1_4flbx")
+region = Rect2(494, 768, 143, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ivps1"]
+atlas = ExtResource("1_4flbx")
+region = Rect2(660, 768, 160, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_urp6f"]
+atlas = ExtResource("1_4flbx")
+region = Rect2(833, 768, 165, 256)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_7hik5"]
 animations = [{
 "frames": [{
@@ -55,6 +79,29 @@ animations = [{
 "loop": true,
 "name": &"idle",
 "speed": 4.5
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dw050")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b26j0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n7ghd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nvl01")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ivps1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_urp6f")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
 }]
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("Bunny")]
@@ -69,9 +116,7 @@ shape = SubResource("CapsuleShape2D_sh265")
 position = Vector2(0.9999981, -36)
 scale = Vector2(0.57857144, 0.5785714)
 sprite_frames = SubResource("SpriteFrames_7hik5")
-animation = &"idle"
-frame = 1
-frame_progress = 0.39628792
+animation = &"move"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 drag_horizontal_enabled = true

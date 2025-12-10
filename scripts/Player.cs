@@ -23,11 +23,21 @@ public partial class Player : CharacterBody2D
 		{
 			velocity.X = direction.X * Speed;
 			velocity.Y = direction.Y * Speed;
+			Bunny.Play("move");
 		}
 		else
 		{
 			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
 			velocity.Y = Mathf.MoveToward(Velocity.Y, 0, Speed);
+			Bunny.Play("idle");
+		}
+
+		if (direction.X < 0)
+		{
+			Bunny.FlipH = false;
+		}
+		else {
+			Bunny.FlipH = true;
 		}
 
 		Velocity = velocity;

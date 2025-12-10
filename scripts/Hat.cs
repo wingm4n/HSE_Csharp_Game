@@ -7,10 +7,14 @@ public partial class Hat : Node2D
 	
 	[Export] private Vector2[] _cornerPositions = new Vector2[]
 	{
-		new Vector2(-800, -450),
-		new Vector2(1000, -450),  
-		new Vector2(-800, 100),
-		new Vector2(1000, 100)
+		new Vector2(-900, -300),
+		new Vector2(-900, 400),  
+		new Vector2(800, -300),
+		new Vector2(800, -400), 
+		new Vector2(-500, -750),
+		new Vector2(-500, 900),
+		new Vector2(500, -750),
+		new Vector2(500, 900)
 	};
 	
 	private Timer _teleportTimer;
@@ -19,7 +23,7 @@ public partial class Hat : Node2D
 	
 	public override void _Ready()
 	{
-		var player = GetNodeOrNull<CharacterBody2D>("/root/Level/Player");
+		var player = GetNodeOrNull<CharacterBody2D>("/root/Field/Player");
 		if (player != null)
 		{
 			_playerStartPosition = player.GlobalPosition;
@@ -38,7 +42,7 @@ public partial class Hat : Node2D
 	{
 		if (!_canSpawnRabbits)
 		{
-			var player = GetNodeOrNull<CharacterBody2D>("/root/Level/Player");
+			var player = GetNodeOrNull<CharacterBody2D>("/root/Field/Player");
 			if (player != null)
 			{
 				float distance = player.GlobalPosition.DistanceTo(_playerStartPosition);
