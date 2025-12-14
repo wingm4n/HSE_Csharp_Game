@@ -3,7 +3,7 @@ using Godot;
 public partial class Hat : Node2D
 {
 	[Export] private PackedScene _rabbitScene;
-	[Export] private float _teleportInterval = 3.0f;
+	[Export] private float _teleportInterval = 2.0f;
 	
 	[Export] private Vector2[] _cornerPositions = new Vector2[]
 	{

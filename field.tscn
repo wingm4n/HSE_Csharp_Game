@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://16nunpgh7450" path="res://gun.tscn" id="5_c2tsg"]
 [ext_resource type="PackedScene" uid="uid://dh1hs0suyp8l2" path="res://rabbit.tscn" id="6_pwbbp"]
 [ext_resource type="PackedScene" uid="uid://cg5ykug2olrf2" path="res://hat.tscn" id="7_c2tsg"]
-[ext_resource type="Script" uid="uid://bgfbee612l1dn" path="res://Label.cs" id="7_pwbbp"]
+[ext_resource type="Script" uid="uid://bgfbee612l1dn" path="res://scripts/LabelHP.cs" id="7_pwbbp"]
 [ext_resource type="AudioStream" uid="uid://bloc0vb7gkv73" path="res://audio game/Pixelland.ogg" id="9_qvwwi"]
 
 [sub_resource type="TileSet" id="TileSet_6e7u2"]
@@ -2853,7 +2853,7 @@ position = Vector2(-221, -48)
 [node name="Gun" parent="Player" instance=ExtResource("5_c2tsg")]
 position = Vector2(38, 15)
 
-[node name="Label" type="Label" parent="Player"]
+[node name="LabelHP" type="Label" parent="Player"]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -2882,13 +2882,13 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Rabbit" parent="." instance=ExtResource("6_pwbbp")]
-position = Vector2(-375, 184)
+position = Vector2(-871, 416)
 
 [node name="Rabbit2" parent="." instance=ExtResource("6_pwbbp")]
-position = Vector2(493, 403)
+position = Vector2(389, 827)
 
 [node name="Rabbit3" parent="." instance=ExtResource("6_pwbbp")]
-position = Vector2(462, -206)
+position = Vector2(832, -354)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

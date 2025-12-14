@@ -3,7 +3,7 @@ using System;
 
 public partial class Carrot : Area2D
 {
-	[Export] public float Speed { get; set; } = 300.0f;
+	[Export] public float Speed { get; set; } = 500.0f;
 	private AnimatedSprite2D BoomAnim;
 	private Rect2 gamefieldBounds = new Rect2(-2000, -2000, 5000, 5000);
 	private bool stopped = false;

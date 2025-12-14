@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 public partial class Rabbit : CharacterBody2D
 {
-	public const float Speed = 100.0f;
+	public static float Speed = 100.0f;
 	public const float ExploisonRadius = 100.0f;
 	public const int ExploisonDamage = 15;
 
@@ -95,11 +95,22 @@ public partial class Rabbit : CharacterBody2D
 
 	public async void Death()
 	{
+		Player.Kills = Player.Kills + 1;
+		CheckKills();
 		RabbitAnim.Play("death");
 		GetNode<AudioStreamPlayer2D>("ShotSound").Play();
 		_collisionShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 		await ToSignal(RabbitAnim, "animation_finished");
+		Speed += 5.0f;
 		QueueFree();
+	}
+	
+	private void CheckKills()
+	{
+		if (Player.Kills % 5 == 0)
+		{
+			_player.BunnyHeal();
+		}
 	}
 
 	public void VarDeath(Vector2 coord, float radius)
@@ -109,6 +120,4 @@ public partial class Rabbit : CharacterBody2D
 			this.Death();
 		}
 	}
-
-
 }

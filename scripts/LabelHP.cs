@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Label : Godot.Label
+public partial class LabelHP : Godot.Label
 
 {
 	[Export] Player _player;
@@ -14,7 +14,7 @@ public partial class Label : Godot.Label
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-	
-		Text = $"HP {_player.BunnyHealth}";}
-	
+		Text = $"HP: {_player.BunnyHealth}\nKills: {Player.Kills}";
+		
+	}
 }
