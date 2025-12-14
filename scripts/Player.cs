@@ -3,24 +3,25 @@ using System;
 
 public partial class Player : CharacterBody2D
 {
-	public static float Speed = 300.0f;
 	public const float JumpVelocity = -400.0f;
+	//public Timer _colorResetTimer;
 
-	public static int Kills = 0;
-	public int BunnyHealth = 100;
-	private AudioStreamPlayer _musicPlayer;
-	private Godot.Label _hpLabel;
-	private Timer _colorResetTimer; 
-	private Godot.Label _gameEnd;
+	private static int BunnyKills = 0;
+	private int BunnyHealth = 100;
+	public int Health { get { return BunnyHealth; }}
+	public static int Kills { get { return BunnyKills; } set { BunnyKills = value; } }
+	public AudioStreamPlayer _musicPlayer;
+	public Godot.Label _hpLabel;
+	public Godot.Label _gameEnd;
 
-	private Color _colorGreen =  new Color(0, 1, 0, 1);
-	private Color _colorWhite =  new Color(1, 1, 1, 1);
-	private Color _colorYellow =  new Color(1, 1, 0, 1);
-	private Color _colorRed =  new Color(1, 0, 0, 1);
+	public Color _colorGreen =  new Color(0, 1, 0, 1);
+	public Color _colorWhite =  new Color(1, 1, 1, 1);
+	public Color _colorYellow =  new Color(1, 1, 0, 1);
+	public Color _colorRed =  new Color(1, 0, 0, 1);
 
 	[Export] public AnimatedSprite2D Bunny;
 	[Export] public Node2D Gun;
-	
+
 	public override void _Ready()
 	{
 		_musicPlayer = GetNode<AudioStreamPlayer>($"../GameMusic");
@@ -39,7 +40,6 @@ public partial class Player : CharacterBody2D
 			_gameEnd.Visible = true;
 			GetTree().Paused = true;
 		}
-		Speed = 400 - BunnyHealth;
 		UpdateHPColor();
 	}
 
@@ -73,6 +73,7 @@ public partial class Player : CharacterBody2D
 		_hpLabel.AddThemeColorOverride("font_color", targetColor);
 	}
 
+	private static float Speed = 300.0f;
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector2 velocity = Velocity;
@@ -95,11 +96,17 @@ public partial class Player : CharacterBody2D
 		{
 			Bunny.FlipH = false;
 		}
-		else {
+		else
+		{
 			Bunny.FlipH = true;
 		}
 
+		Speed = 400 - Health;
+
 		Velocity = velocity;
 		MoveAndSlide();
+
 	}
+
+
 }

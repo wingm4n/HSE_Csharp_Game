@@ -13,7 +13,16 @@ offset_top = 173.0
 offset_right = 504.0
 offset_bottom = 396.0
 theme_override_font_sizes/font_size = 50
-text = "Play"
+text = "Play !"
+script = ExtResource("2_mae5d")
+
+[node name="PlayDuo" type="Button" parent="."]
+offset_left = 345.0
+offset_top = 445.0
+offset_right = 788.0
+offset_bottom = 668.0
+theme_override_font_sizes/font_size = 50
+text = "Play DUO !"
 script = ExtResource("2_mae5d")
 
 [node name="Quit" type="Button" parent="."]
@@ -26,3 +35,4 @@ text = "Quit"
 script = ExtResource("2_ouk20")
 
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="PlayDuo" to="." method="_on_play_pressed"]

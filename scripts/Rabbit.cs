@@ -15,10 +15,13 @@ public partial class Rabbit : CharacterBody2D
 	private bool isExploiding = false;
 
 	private CollisionShape2D _collisionShape;
+
+	[Export] public Player Target = new Player();
 	
 	[Export] public AnimatedSprite2D RabbitAnim;
 	[Export] public Player _player;
-	
+	[Export] public Player _player2;
+
 	public override void _Ready()
 	{
 		AddToGroup("enemies");
@@ -32,28 +35,29 @@ public partial class Rabbit : CharacterBody2D
 		//_detect_player.Connect(Area2D.SignalName.BodyEntered, Callable.From<Node>(OnBoomEntered));
 		
 		_player = GetTree().Root.FindChild("Player", true, false) as Player;
+		///_player2 = GetTree().Root.FindChild("Player2", true, false) as Player2;
 
 		_collisionShape = GetNode<CollisionShape2D>($"./CollisionShape2D");
 		RabbitAnim.Play("move");
+
+		Target.Position = new Vector2(-3000, -3000);
 	}
 	public override void _PhysicsProcess(double delta)
 	{
 		if (isExploiding) return;
 
-		CharacterBody2D _player = GetNode<CharacterBody2D>($"../Player");
-		
 		Vector2 velocity = Velocity;
 
 		Vector2 direction;
-		direction.X = Math.Sign(_player.Position.X - this.Position.X);
-		direction.Y = Math.Sign(_player.Position.Y - this.Position.Y);
+		direction.X = Math.Sign(Target.Position.X - this.Position.X);
+		direction.Y = Math.Sign(Target.Position.Y - this.Position.Y);
 		if ((direction != Vector2.Zero) && (chaseState))
 		{
 			velocity.X = direction.X * Speed;
 			velocity.Y = direction.Y * Speed;
 		}
 
-		if ((direction.X< 0) || (Math.Abs(_player.Position.X - this.Position.X) < 10))
+		if ((direction.X< 0) || (Math.Abs(Target.Position.X - this.Position.X) < 10))
 		{
 			RabbitAnim.FlipH = true;
 		}
@@ -66,6 +70,11 @@ public partial class Rabbit : CharacterBody2D
 		MoveAndSlide();
 	}
 
+	private double DistanceToPlayer(Player body)
+	{
+		return Math.Sqrt(Math.Pow(body.Position.X, 2) + Math.Pow(body.Position.Y, 2));
+	}
+
 	private void OnBodyEntered(Node body)
 	{
 		if (!(body is CharacterBody2D))
@@ -73,9 +82,13 @@ public partial class Rabbit : CharacterBody2D
 			return;
 		}
 
-		if (body.Name == "Player")
+		if (body is Player)
 		{
 			chaseState = true;
+			if (DistanceToPlayer((Player)body) <= DistanceToPlayer(Target))
+			{
+				Target = (Player)body;
+			}
 		}
 	}
 	private void OnBoomEntered(Node body)
@@ -85,12 +98,13 @@ public partial class Rabbit : CharacterBody2D
 			return;
 		}
 
-		if (body.Name == "Player")
+		if (body is Player)
 		{
-			_player.BunnyTakeDamage();
+			((Player)body).BunnyTakeDamage();
 			isExploiding = true;
 			Death();
 		}
+
 	}
 
 	public async void Death()
@@ -110,6 +124,10 @@ public partial class Rabbit : CharacterBody2D
 		if (Player.Kills % 5 == 0)
 		{
 			_player.BunnyHeal();
+			if (_player2 != null)
+			{
+				_player2.BunnyHeal();
+			}
 		}
 	}
 
