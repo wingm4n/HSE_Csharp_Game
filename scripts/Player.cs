@@ -13,6 +13,7 @@ public partial class Player : CharacterBody2D
 	public AudioStreamPlayer _musicPlayer;
 	public Godot.Label _hpLabel;
 	public Godot.Label _gameEnd;
+	public Button _gameRestart;
 
 	public Color _colorGreen =  new Color(0, 1, 0, 1);
 	public Color _colorWhite =  new Color(1, 1, 1, 1);
@@ -28,6 +29,7 @@ public partial class Player : CharacterBody2D
 		_musicPlayer.ProcessMode = ProcessModeEnum.Always;
 		_gameEnd = GetNode<Godot.Label>($"./GameEnd");
 		_hpLabel = GetNode<Godot.Label>($"./LabelHP");
+		_gameRestart = GetTree().Root.FindChild("GameRestart", true, false) as Button;
 		Bunny.Play("idle");
 	}
 
@@ -38,6 +40,7 @@ public partial class Player : CharacterBody2D
 		{
 			BunnyHealth = 0;
 			_gameEnd.Visible = true;
+			_gameRestart.Visible = true;
 			GetTree().Paused = true;
 		}
 		UpdateHPColor();
