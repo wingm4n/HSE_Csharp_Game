@@ -2888,6 +2888,7 @@ vertical_alignment = 1
 
 [node name="GameRestart" type="Button" parent="Player"]
 process_mode = 2
+visible = false
 offset_right = 133.0
 offset_bottom = 94.0
 script = ExtResource("7_1avfc")
