@@ -1,11 +1,12 @@
 using Godot;
 using System;
+using static Godot.TextServer;
 
 public partial class Player : CharacterBody2D
 {
 	public const float JumpVelocity = -400.0f;
 	//public Timer _colorResetTimer;
-
+	public bool Swap = false;
 	private static int BunnyKills = 0;
 	private int BunnyHealth = 100;
 	public int Health { get { return BunnyHealth; }}
@@ -83,8 +84,17 @@ public partial class Player : CharacterBody2D
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector2 velocity = Velocity;
+		Vector2 direction;
 
-		Vector2 direction = Input.GetVector("move_left", "move_right", "move_up", "move_down");
+		if (Swap)
+		{
+			direction = Input.GetVector("alt_left", "alt_right", "alt_up", "alt_down");
+		}
+		else
+		{
+			direction = Input.GetVector("move_left", "move_right", "move_up", "move_down");
+		}
+
 		if (direction != Vector2.Zero)
 		{
 			velocity.X = direction.X * Speed;

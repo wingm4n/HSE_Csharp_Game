@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://cutn0ilw8wfh8"]
+[gd_scene load_steps=26 format=4 uid="uid://cutn0ilw8wfh8"]
 
 [ext_resource type="Texture2D" uid="uid://bdulqosrv6nd2" path="res://Sprout Lands/Tilesets/Hills.png" id="1_4yttr"]
 [ext_resource type="Texture2D" uid="uid://bj03ffhg541os" path="res://Sprout Lands/_.jpg" id="2_xvo2g"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://bgfbee612l1dn" path="res://scripts/LabelHP.cs" id="6_duab7"]
 [ext_resource type="PackedScene" uid="uid://dh1hs0suyp8l2" path="res://rabbit.tscn" id="7_fcunw"]
 [ext_resource type="Script" uid="uid://dhgtj17umgjuf" path="res://scripts/GameRestart.cs" id="7_gnl3f"]
+[ext_resource type="Texture2D" uid="uid://ioiug8lnrmjy" path="res://sprites/restart.png" id="7_kqe1t"]
 [ext_resource type="PackedScene" uid="uid://cg5ykug2olrf2" path="res://hat.tscn" id="8_gu8e8"]
 [ext_resource type="AudioStream" uid="uid://bloc0vb7gkv73" path="res://audio game/Pixelland.ogg" id="9_gnl3f"]
 [ext_resource type="PackedScene" uid="uid://b4rwhq0bb7unx" path="res://player2.tscn" id="10_xvo2g"]
@@ -17,6 +18,8 @@
 [ext_resource type="Script" uid="uid://csrbqbxfe5dlf" path="res://scripts/CoinCollector.cs" id="14_duab7"]
 [ext_resource type="Script" uid="uid://dwefjuuhfqyn3" path="res://scripts/CoinSpawner.cs" id="15_gu8e8"]
 [ext_resource type="PackedScene" uid="uid://dukepiui4u5f5" path="res://coin.tscn" id="16_gnl3f"]
+[ext_resource type="Script" uid="uid://cv4xs2mqmnwl0" path="res://scripts/SwapManager.cs" id="19_0nynn"]
+[ext_resource type="Texture2D" uid="uid://c30v3bxrq1ma" path="res://sprites/swap.png" id="20_qrf5t"]
 
 [sub_resource type="TileSet" id="TileSet_6e7u2"]
 tile_shape = 3
@@ -2892,8 +2895,13 @@ vertical_alignment = 1
 [node name="GameRestart" type="Button" parent="Player"]
 process_mode = 2
 visible = false
-offset_right = 133.0
-offset_bottom = 94.0
+offset_left = -93.0
+offset_top = -112.0
+offset_right = 129.0
+offset_bottom = 73.0
+icon = ExtResource("7_kqe1t")
+flat = true
+expand_icon = true
 script = ExtResource("7_gnl3f")
 
 [node name="Rabbit" parent="." instance=ExtResource("7_fcunw")]
@@ -2903,9 +2911,17 @@ position = Vector2(-871, 416)
 position = Vector2(389, 827)
 
 [node name="Rabbit3" parent="." instance=ExtResource("7_fcunw")]
-position = Vector2(832, -354)
+position = Vector2(849, -336)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="Swap" type="Sprite2D" parent="CanvasLayer"]
+process_mode = 3
+visible = false
+position = Vector2(961, 563.00006)
+scale = Vector2(1.2187501, 0.9853517)
+texture = ExtResource("20_qrf5t")
 
 [node name="Hat" parent="." instance=ExtResource("8_gu8e8")]
 position = Vector2(-489, 846)
@@ -2975,3 +2991,7 @@ coinCollector = NodePath("../CoinCollector")
 [node name="SpawnTimer" type="Timer" parent="CoinSpawner"]
 wait_time = 12.0
 autostart = true
+
+[node name="SwapManager" type="Node2D" parent="."]
+process_mode = 3
+script = ExtResource("19_0nynn")

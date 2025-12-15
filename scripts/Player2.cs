@@ -11,8 +11,16 @@ public partial class Player2 : Player
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector2 velocity = Velocity;
+		Vector2 direction;
 
-		Vector2 direction = Input.GetVector("alt_left", "alt_right", "alt_up", "alt_down");
+
+		if (Swap) {
+			direction = Input.GetVector("move_left", "move_right", "move_up", "move_down");
+		}
+		else {
+			direction = Input.GetVector("alt_left", "alt_right", "alt_up", "alt_down");
+		}
+
 		if (direction != Vector2.Zero)
 		{
 			velocity.X = direction.X * Speed;
