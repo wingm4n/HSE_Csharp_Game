@@ -9,38 +9,38 @@
 script = ExtResource("1_lti8b")
 
 [node name="Play" type="Button" parent="."]
-offset_left = 510.0
-offset_top = 297.0
-offset_right = 858.0
-offset_bottom = 483.0
+offset_left = 172.0
+offset_top = 134.0
+offset_right = 520.0
+offset_bottom = 320.0
 theme_override_font_sizes/font_size = 50
 text = "Play SOLO!"
 clip_text = true
 script = ExtResource("2_mae5d")
 
 [node name="PlayDuo" type="Button" parent="."]
-offset_left = 992.0
-offset_top = 300.0
-offset_right = 1372.0
-offset_bottom = 483.0
+offset_left = 627.0
+offset_top = 140.0
+offset_right = 1007.0
+offset_bottom = 323.0
 theme_override_font_sizes/font_size = 50
 text = "Play DUO !"
 script = ExtResource("2_mae5d")
 
 [node name="Quit" type="Button" parent="."]
-offset_left = 797.0
-offset_top = 571.0
-offset_right = 1046.0
-offset_bottom = 691.0
+offset_left = 448.0
+offset_top = 362.0
+offset_right = 697.0
+offset_bottom = 482.0
 theme_override_font_sizes/font_size = 50
 text = "Quit"
 script = ExtResource("2_ouk20")
 
 [node name="Tutorial" type="Label" parent="."]
-offset_left = 650.0
-offset_top = 709.0
-offset_right = 1273.0
-offset_bottom = 858.0
+offset_left = 274.0
+offset_top = 507.0
+offset_right = 897.0
+offset_bottom = 656.0
 theme_override_font_sizes/font_size = 50
 text = "Player1: WASD + Space
 Player2: Arrows + Shift"
