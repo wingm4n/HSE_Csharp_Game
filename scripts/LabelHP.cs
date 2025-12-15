@@ -10,7 +10,6 @@ public partial class LabelHP : Godot.Label
 		_player = (Player)GetParent();
 		
 	}
-
 	public override void _Process(double delta)
 	{
 		Text = $"HP: {_player.Health}";

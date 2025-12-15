@@ -1,0 +1,71 @@
+[gd_scene load_steps=11 format=3 uid="uid://dukepiui4u5f5"]
+
+[ext_resource type="Script" uid="uid://c1d0h4vgcxreb" path="res://scripts/Coin.cs" id="1_0t63x"]
+[ext_resource type="Texture2D" uid="uid://dv4xyaqi3tb5" path="res://coin.png" id="1_d5gmh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0t63x"]
+atlas = ExtResource("1_d5gmh")
+region = Rect2(50, 150, 215, 210)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v7riw"]
+atlas = ExtResource("1_d5gmh")
+region = Rect2(265, 150, 215, 210)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pdq0q"]
+atlas = ExtResource("1_d5gmh")
+region = Rect2(480, 150, 215, 210)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w14il"]
+atlas = ExtResource("1_d5gmh")
+region = Rect2(50, 360, 215, 210)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4etq"]
+atlas = ExtResource("1_d5gmh")
+region = Rect2(265, 360, 215, 210)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4fra"]
+atlas = ExtResource("1_d5gmh")
+region = Rect2(480, 360, 215, 210)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_te2np"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0t63x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v7riw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pdq0q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w14il")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4etq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o4fra")
+}],
+"loop": true,
+"name": &"Rotate",
+"speed": 7.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d5gmh"]
+
+[node name="Coin" type="Area2D"]
+visibility_layer = 2
+script = ExtResource("1_0t63x")
+
+[node name="CoinSprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_te2np")
+animation = &"Rotate"
+autoplay = "Rotate"
+frame_progress = 0.79291546
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(5, 5)
+shape = SubResource("CircleShape2D_d5gmh")
