@@ -1,38 +1,51 @@
-[gd_scene load_steps=4 format=3 uid="uid://dklwt0m217mi4"]
+[gd_scene load_steps=5 format=3 uid="uid://dklwt0m217mi4"]
 
 [ext_resource type="Script" uid="uid://dwwobdwiwp1mr" path="res://scripts/Menu.cs" id="1_lti8b"]
 [ext_resource type="Script" uid="uid://bldc1dt7q6iae" path="res://scripts/Play.cs" id="2_mae5d"]
 [ext_resource type="Script" uid="uid://cg3ee0qq4g7su" path="res://scripts/Quit.cs" id="2_ouk20"]
+[ext_resource type="PackedScene" uid="uid://beea1mun0x80t" path="res://bg.tscn" id="4_4hy44"]
 
 [node name="Menu" type="Node2D"]
 script = ExtResource("1_lti8b")
 
 [node name="Play" type="Button" parent="."]
-offset_left = 61.0
-offset_top = 173.0
-offset_right = 504.0
-offset_bottom = 396.0
-theme_override_font_sizes/font_size = 50
+offset_left = 693.0
+offset_top = 489.0
+offset_right = 1442.0
+offset_bottom = 841.0
+theme_override_font_sizes/font_size = 80
 text = "Play !"
+clip_text = true
 script = ExtResource("2_mae5d")
 
 [node name="PlayDuo" type="Button" parent="."]
-offset_left = 345.0
-offset_top = 445.0
-offset_right = 788.0
-offset_bottom = 668.0
-theme_override_font_sizes/font_size = 50
+offset_left = 1581.0
+offset_top = 485.0
+offset_right = 2350.0
+offset_bottom = 840.0
+theme_override_font_sizes/font_size = 80
 text = "Play DUO !"
 script = ExtResource("2_mae5d")
 
 [node name="Quit" type="Button" parent="."]
-offset_left = 653.0
-offset_top = 175.0
-offset_right = 1096.0
-offset_bottom = 398.0
-theme_override_font_sizes/font_size = 50
+offset_left = 1136.0
+offset_top = 922.0
+offset_right = 1892.0459
+offset_bottom = 1256.0
+theme_override_font_sizes/font_size = 80
 text = "Quit"
 script = ExtResource("2_ouk20")
+
+[node name="BG" parent="." instance=ExtResource("4_4hy44")]
+
+[node name="Tutorial" type="Label" parent="."]
+offset_left = 920.0
+offset_top = 1298.0
+offset_right = 2107.0
+offset_bottom = 1602.0
+theme_override_font_sizes/font_size = 100
+text = "Shooter: WASD + Space
+Sprinter: Arrows + Shift"
 
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="PlayDuo" to="." method="_on_play_pressed"]
