@@ -17,7 +17,7 @@ public partial class Wolf : CharacterBody2D
 
 	// Основные данные врага
 
-	public const float Speed = 50.0f;
+	public const float Speed = 1.0f;
 	public const float ExploisonRadius = 150.0f;
 	public const int ExploisonDamage = 20;
 
