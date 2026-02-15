@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 /// Класс Wolf реализует врагов Волков.
 /// </summary>
 /// 
-
 public partial class Wolf : CharacterBody2D
 {
 
