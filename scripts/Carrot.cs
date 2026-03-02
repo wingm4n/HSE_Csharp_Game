@@ -5,7 +5,7 @@ using System;
 // Реализация игрового снаряда - морковки
 public partial class Carrot : Area2D
 {
-	[Export] public float _speed { get; set; } = 500.0f;
+	[Export] public float _speed { get; set; } = 501.0f;
 	[Export] public AnimatedSprite2D _boomAnim;
     [Export] public Sprite2D _noAnim;
     private Rect2 gamefieldBounds = new Rect2(-2000, -2000, 5000, 5000);
