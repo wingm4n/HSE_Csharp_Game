@@ -11,9 +11,13 @@ public partial class Menu : Node2D
 		_quit.Connect(Quit.SignalName.Pressed, Callable.From(MenuQuitPressed));
 		Button _play = GetNode<Button>("Play");
 		_play.Connect(Quit.SignalName.Pressed, Callable.From(MenuPlayPressed));
-        Button _playDuo = GetNode<Button>("PlayDuo");
-        _playDuo.Connect(Quit.SignalName.Pressed, Callable.From(MenuPlayDuoPressed));
-    }
+		Button _playDuo = GetNode<Button>("PlayDuo");
+		_playDuo.Connect(Quit.SignalName.Pressed, Callable.From(MenuPlayDuoPressed));
+		Button _play1 = GetNode<Button>("Play1");
+		_play1.Connect(Quit.SignalName.Pressed, Callable.From(MenuPlay1Pressed));
+		Button _play2 = GetNode<Button>("Play2");
+		_play2.Connect(Quit.SignalName.Pressed, Callable.From(MenuPlay2Pressed));
+	}
 
 	public override void _Process(double delta)
 	{
@@ -29,10 +33,20 @@ public partial class Menu : Node2D
 		GetTree().ChangeSceneToFile("res://field.tscn");
 	}
 
-    private void MenuPlayDuoPressed()
-    {
-        GetTree().ChangeSceneToFile("res://field2.tscn");
-    }
+	private void MenuPlayDuoPressed()
+	{
+		GetTree().ChangeSceneToFile("res://field2.tscn");
+	}
+	
+	private void MenuPlay1Pressed()
+	{
+		GetTree().ChangeSceneToFile("res://level1.tscn");
+	}
+	
+	private void MenuPlay2Pressed()
+	{
+		GetTree().ChangeSceneToFile("res://level2.tscn");
+	}
 
 
 }

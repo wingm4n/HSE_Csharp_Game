@@ -13,8 +13,6 @@ public partial class Player : CharacterBody2D
 	public int Health { get { return BunnyHealth; }}
 	public static int Kills { get { return BunnyKills; } set { BunnyKills = value; } }
 	public AudioStreamPlayer _musicPlayer;
-	public Godot.Label _hpLabel;
-	public Godot.Label _gameEnd;
 
 	public Button _gameRestart;
 
@@ -32,10 +30,7 @@ public partial class Player : CharacterBody2D
 	{
 		_musicPlayer = GetNode<AudioStreamPlayer>($"../GameMusic");
 		_musicPlayer.ProcessMode = ProcessModeEnum.Always;
-		_gameEnd = GetNode<Godot.Label>($"./GameEnd");
-		_hpLabel = GetNode<Godot.Label>($"./LabelHP");
 
-		_gameRestart = GetTree().Root.FindChild("GameRestart", true, false) as Button;
 		Bunny.Play("idle");
 	}
 
@@ -46,8 +41,6 @@ public partial class Player : CharacterBody2D
 		if (BunnyHealth <= 0)
 		{
 			BunnyHealth = 0;
-			_gameEnd.Visible = true;
-			_gameRestart.Visible = true;
 			GetTree().Paused = true;
 		}
 		UpdateHPColor();
@@ -85,7 +78,6 @@ public partial class Player : CharacterBody2D
 			targetColor = _colorRed;
 		}
 	   
-		_hpLabel.AddThemeColorOverride("font_color", targetColor);
 	}
 
 	private static float Speed = 300.0f;
