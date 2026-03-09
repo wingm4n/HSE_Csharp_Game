@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://bnyvkexodje7m" path="res://scripts/Player.cs" id="1_onrkg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sh265"]
-radius = 32.0
-height = 102.0
+radius = 36.0
+height = 104.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_onrkg"]
 atlas = ExtResource("1_4flbx")
@@ -109,11 +109,11 @@ script = ExtResource("1_onrkg")
 Bunny = NodePath("Bunny")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(3, -9)
+position = Vector2(1, -22)
 shape = SubResource("CapsuleShape2D_sh265")
 
 [node name="Bunny" type="AnimatedSprite2D" parent="."]
-position = Vector2(0.9999981, -36)
+position = Vector2(1, -40)
 scale = Vector2(0.57857144, 0.5785714)
 sprite_frames = SubResource("SpriteFrames_7hik5")
 animation = &"move"
