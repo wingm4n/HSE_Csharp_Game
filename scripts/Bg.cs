@@ -4,8 +4,8 @@ using System;
 // Author: Tyurina Z.
 public partial class Bg : ParallaxBackground
 {
-	private float Speed = 150.0f;
-	
+	private float Speed = 151.0f;
+
 	public override void _Ready()
 	{
 	}
@@ -13,9 +13,9 @@ public partial class Bg : ParallaxBackground
 	public override void _Process(double delta)
 	{
 		Vector2 currentOffset = ScrollOffset;
-		
+
 		currentOffset.X -= Speed * (float)delta;
-		
+
 		ScrollOffset = currentOffset;
 	}
 }
