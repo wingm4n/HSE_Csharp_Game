@@ -1,0 +1,40 @@
+using Godot;
+using System;
+
+public partial class Level1 : Node2D
+{
+	private Board boardNode;
+	private Godot.Label statusLabel;
+
+	public override void _Ready()
+	{
+		boardNode = GetNode<Board>("Board");
+		statusLabel = GetNode<Godot.Label>("UI/StatusLabel");
+		statusLabel.Text = "Mode: Solo";
+	}
+
+	public override void _Input(InputEvent @event)
+	{
+	if (@event is InputEventKey keyEvent && keyEvent.Pressed)
+	{
+		Vector2I dir = new Vector2I(0, 0);
+
+		// solo
+		if (keyEvent.Keycode == Key.W) dir = new Vector2I(0, 1);
+		if (keyEvent.Keycode == Key.S) dir = new Vector2I(0, -1);
+		if (keyEvent.Keycode == Key.A) dir = new Vector2I(1, 0);
+		if (keyEvent.Keycode == Key.D) dir = new Vector2I(-1, 0);
+
+		// duo
+		if (keyEvent.Keycode == Key.Up) dir = new Vector2I(0, 1);
+		if (keyEvent.Keycode == Key.Down) dir = new Vector2I(0, -1);
+		if (keyEvent.Keycode == Key.Left) dir = new Vector2I(1, 0);
+		if (keyEvent.Keycode == Key.Right) dir = new Vector2I(-1, 0);
+
+		if (dir != new Vector2I(0, 0))
+		{
+			boardNode.MoveTile(dir);
+		}
+	}
+	}
+}
