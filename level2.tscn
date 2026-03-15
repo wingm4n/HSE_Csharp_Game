@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://bostocnqgof5"]
+[gd_scene load_steps=14 format=4 uid="uid://bostocnqgof5"]
 
 [ext_resource type="Script" uid="uid://cdy1x2pedvh1o" path="res://scripts/Level2.cs" id="1_8i3m3"]
 [ext_resource type="Texture2D" uid="uid://bdulqosrv6nd2" path="res://Sprout Lands/Tilesets/Hills.png" id="1_21xmu"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cxja2qbsil6yj" path="res://player.tscn" id="4_qulpo"]
 [ext_resource type="AudioStream" uid="uid://bloc0vb7gkv73" path="res://audio game/Pixelland.ogg" id="5_jifot"]
 [ext_resource type="Script" uid="uid://dprhrbq43f1jy" path="res://scripts/Camera.cs" id="6_3opl0"]
+[ext_resource type="PackedScene" uid="uid://dh1hs0suyp8l2" path="res://rabbit.tscn" id="6_rmy57"]
 
 [sub_resource type="TileSet" id="TileSet_6e7u2"]
 tile_shape = 3
@@ -2834,6 +2835,7 @@ sources/7 = SubResource("TileSetAtlasSource_gj8yl")
 
 [node name="Field" type="Node2D"]
 script = ExtResource("1_8i3m3")
+RabbitScene = ExtResource("6_rmy57")
 
 [node name="Node2D" type="Node2D" parent="."]
 
