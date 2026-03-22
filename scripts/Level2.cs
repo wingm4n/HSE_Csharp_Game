@@ -78,7 +78,9 @@ public partial class Level2 : Node2D
 	[Export] private TileMapLayer _tileMap;
 	[Export] public PackedScene RabbitScene;
 	[Export] public Player _player;
+	[Export] public Player _player2;
 	[Export] public Node2D _key;
+	[Export] public Node2D _key2;
 
 	public int[,] _labyrinthMap;
 	private int _mazeWidth = 21;
@@ -94,7 +96,9 @@ public partial class Level2 : Node2D
 		_tileMap = GetNode<TileMapLayer>("Node2D/Layer0");
 		_tileMap.TileSet.TileSize = new Vector2I(16, 16);
 		_player = GetTree().Root.FindChild("Player", true, false) as Player;
+		_player2 = GetTree().Root.FindChild("Player2", true, false) as Player;
 		_key = GetTree().Root.FindChild("Key", true, false) as Node2D;
+		_key2 = GetTree().Root.FindChild("Key2", true, false) as Node2D;
 		CallDeferred(nameof(GenerateLabyrinth), _mazeWidth);
 	}
 
@@ -186,7 +190,7 @@ public partial class Level2 : Node2D
 	{
 
 		Vector2 globalKeyPos = _tileMap.ToGlobal(_tileMap.MapToLocal(keyPos));
-		if (globalKeyPos.DistanceTo(_player.Position) < 30)
+		if (globalKeyPos.DistanceTo(_player.Position) < 30 && !keyReady)
 		{
 			_key.Visible = true;
 			keyReady = true;
@@ -195,10 +199,22 @@ public partial class Level2 : Node2D
 
 		}
 
-		Vector2 globalGatePos = _tileMap.ToGlobal(_tileMap.MapToLocal(gatePos));
-		if (globalGatePos.DistanceTo(_player.Position) < 30 && keyReady)
+		if (_player2 != null && 
+			globalKeyPos.DistanceTo(_player2.Position) < 30 && !keyReady)
 		{
-			GD.Print("WIN WIN");
+			_key2.Visible = true;
+			keyReady = true;
+			_labyrinthMap[keyPos.X, keyPos.Y] = 0;
+			_tileMap.SetCell(keyPos, 0, new Vector2I(15, 15));
+
+		}
+
+
+		Vector2 globalGatePos = _tileMap.ToGlobal(_tileMap.MapToLocal(gatePos));
+		if (globalGatePos.DistanceTo(_player.Position) < 65 && keyReady)
+		{
+			if (_player2 == null || globalGatePos.DistanceTo(_player2.Position) < 65)
+				GD.Print("WIN WIN");
 		}
 
 		for (int i = _rabbits.Count - 1; i >= 0; i--)
