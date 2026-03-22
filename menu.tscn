@@ -1,75 +1,152 @@
-[gd_scene load_steps=5 format=3 uid="uid://dklwt0m217mi4"]
+[gd_scene load_steps=7 format=3 uid="uid://dklwt0m217mi4"]
 
 [ext_resource type="Script" uid="uid://dwwobdwiwp1mr" path="res://scripts/Menu.cs" id="1_lti8b"]
-[ext_resource type="Script" uid="uid://bldc1dt7q6iae" path="res://scripts/Play.cs" id="2_mae5d"]
-[ext_resource type="Script" uid="uid://cg3ee0qq4g7su" path="res://scripts/Quit.cs" id="2_ouk20"]
 [ext_resource type="PackedScene" uid="uid://beea1mun0x80t" path="res://bg.tscn" id="4_4hy44"]
 
-[node name="Menu" type="Node2D"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6eyaj"]
+bg_color = Color(0.17441913, 0.15675089, 0.47483903, 1)
+border_width_left = 5
+border_width_top = 8
+border_width_right = 5
+border_width_bottom = 8
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 14
+shadow_offset = Vector2(10, -7)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8u653"]
+bg_color = Color(0.14399207, 0.1282844, 0.40543604, 1)
+border_width_left = 2
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 2
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bwtow"]
+bg_color = Color(0.4713813, 0.48956388, 0.9165036, 1)
+border_width_left = 2
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 2
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ouk20"]
+bg_color = Color(11.708403, 11.708403, 11.708403, 0)
+draw_center = false
+
+[node name="Menu" type="CanvasLayer"]
 script = ExtResource("1_lti8b")
-
-[node name="PlaySolo3" type="Button" parent="."]
-offset_left = 119.0
-offset_top = 58.0
-offset_right = 418.0
-offset_bottom = 204.0
-theme_override_font_sizes/font_size = 50
-text = "Play SOLO!
-(level 3)"
-clip_text = true
-script = ExtResource("2_mae5d")
-
-[node name="PlayDuo3" type="Button" parent="."]
-offset_left = 444.0
-offset_top = 57.0
-offset_right = 752.0
-offset_bottom = 203.0
-theme_override_font_sizes/font_size = 50
-text = "Play DUO !
-(level 3)"
-script = ExtResource("2_mae5d")
-
-[node name="Quit" type="Button" parent="."]
-offset_left = 735.0
-offset_top = 405.0
-offset_right = 984.0
-offset_bottom = 525.0
-theme_override_font_sizes/font_size = 50
-text = "Quit"
-script = ExtResource("2_ouk20")
-
-[node name="Tutorial" type="Label" parent="."]
-offset_left = 233.0
-offset_top = 568.0
-offset_right = 856.0
-offset_bottom = 717.0
-theme_override_font_sizes/font_size = 50
-text = "Player1: WASD + Space
-Player2: Arrows + Shift"
 
 [node name="BG" parent="." instance=ExtResource("4_4hy44")]
 
-[node name="PlaySolo1" type="Button" parent="."]
-offset_left = 140.0
-offset_top = 236.0
-offset_right = 411.0
-offset_bottom = 387.0
-theme_override_font_sizes/font_size = 50
-text = "Play SOLO!
-(level 1"
-clip_text = true
-script = ExtResource("2_mae5d")
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="PlaySolo2" type="Button" parent="."]
-offset_left = 455.0
-offset_top = 235.0
-offset_right = 726.0
-offset_bottom = 386.0
-theme_override_font_sizes/font_size = 50
-text = "Play SOLO!
-(level 2)"
-clip_text = true
-script = ExtResource("2_mae5d")
+[node name="Box" type="VBoxContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(800, 500)
+layout_mode = 2
+theme_override_constants/separation = 30
 
-[connection signal="pressed" from="PlaySolo3" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="PlayDuo3" to="." method="_on_play_pressed"]
+[node name="HBox_MODE" type="HBoxContainer" parent="CenterContainer/Box"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label_MODE" type="Label" parent="CenterContainer/Box/HBox_MODE"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.655247, 0.009237446, 0.3848017, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 50
+text = "MODE:"
+
+[node name="ModeSelector" type="OptionButton" parent="CenterContainer/Box/HBox_MODE"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_colors/font_color = Color(0.886175, 0.63526917, 0.9019438, 1)
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_6eyaj")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_8u653")
+theme_override_styles/hover = SubResource("StyleBoxFlat_bwtow")
+theme_override_constants/arrow_margin = 10
+alignment = 1
+
+[node name="HBox_LEVEL" type="HBoxContainer" parent="CenterContainer/Box"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label_LEVEL" type="Label" parent="CenterContainer/Box/HBox_LEVEL"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.655247, 0.009237446, 0.3848017, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 50
+text = "LEVEL:"
+
+[node name="LevelSelector" type="OptionButton" parent="CenterContainer/Box/HBox_LEVEL"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_colors/font_color = Color(0.886175, 0.63526917, 0.9019438, 1)
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_6eyaj")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_8u653")
+theme_override_styles/hover = SubResource("StyleBoxFlat_bwtow")
+theme_override_constants/arrow_margin = 10
+alignment = 1
+
+[node name="PlayButton" type="Button" parent="CenterContainer/Box"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 0
+theme_override_colors/font_color = Color(0.886175, 0.63526917, 0.9019438, 1)
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_6eyaj")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_8u653")
+theme_override_styles/hover = SubResource("StyleBoxFlat_bwtow")
+
+[node name="QuitButton" type="Button" parent="CenterContainer/Box"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 0
+theme_override_colors/font_color = Color(0.886175, 0.63526917, 0.9019438, 1)
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_6eyaj")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_8u653")
+theme_override_styles/hover = SubResource("StyleBoxFlat_bwtow")
+
+[node name="Tutorial" type="Label" parent="CenterContainer/Box"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.9818757, 0.9818757, 0.9818757, 1)
+theme_override_colors/font_outline_color = Color(0.655247, 0.009237446, 0.3848017, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_ouk20")
+text = "Player1: WASD + Space
+Player2: Arrows + Shift"
