@@ -1,175 +1,142 @@
 using Godot;
-using Godot.NativeInterop;
 using System;
-using System.Reflection.Metadata;
 using System.Threading.Tasks;
 
-// Author: Kovaleva E. Reviewers: Korostelev A., Svetlichny G., Tyurina Z.
-/// <summary>
-/// Класс Rabbit реализует врагов - Кроликов.
-/// </summary>
+// Класс Rabbit реализует врагов - Кроликов.
 public partial class Rabbit : CharacterBody2D
 {
-	// Основные данные врага
+	public bool IsInMaze = false;
+	public Vector2 MazeNextPoint;
+	public bool ReachedMazePoint = true;
+
 	public static float Speed = 100.0f;
 	public const float ExploisonRadius = 100.0f;
 	public const int ExploisonDamage = 15;
 
 	private bool chaseState = false;
-
 	private bool isExploiding = false;
-
 	private CollisionShape2D _collisionShape;
 
 	[Export] public Player Target = new Player();
-	
 	[Export] public AnimatedSprite2D RabbitAnim;
 	[Export] public Player _player;
 	[Export] public Player _player2;
 
-	// Инициализирует персонажа и настраивает обработчик событий
 	public override void _Ready()
 	{
 		AddToGroup("enemies");
 
-		// Детектор обнаружения игрока
-
-		Area2D _detect = GetNode<Area2D>($"./Detector");
-		_detect.Connect(Area2D.SignalName.BodyEntered, Callable.From<Node>(OnBodyEntered));
-
-		// Детектор вхождения в поле взрыва
-
-		Area2D _detect_boom = GetNode<Area2D>($"./Detector_BOOM");
-		_detect_boom.Connect(Area2D.SignalName.BodyEntered, Callable.From<Node>(OnBoomEntered));
-
-		// Находим игрока на сцене
+		GetNodeOrNull<Area2D>("Detector")?.Connect(Area2D.SignalName.BodyEntered, Callable.From<Node>(OnBodyEntered));
+		GetNodeOrNull<Area2D>("Detector_BOOM")?.Connect(Area2D.SignalName.BodyEntered, Callable.From<Node>(OnBoomEntered));
 
 		_player = GetTree().Root.FindChild("Player", true, false) as Player;
-
-		// Детектор для обработки столкновений
-
-		_collisionShape = GetNode<CollisionShape2D>($"./CollisionShape2D");
-		RabbitAnim.Play("move");
-
+		_collisionShape = GetNodeOrNull<CollisionShape2D>("CollisionShape2D");
+		
+		RabbitAnim?.Play("move");
 		Target.Position = new Vector2(-3000, -3000);
 	}
 
-	// Обработка физики игры
 	public override void _PhysicsProcess(double delta)
 	{
 		if (isExploiding) return;
 
+		if (IsInMaze)
+		{
+			float dist = Position.DistanceTo(MazeNextPoint);
+			Speed = 30.0f;
+			if (dist > 2.0f)
+			{
+				// Прямое перемещение игнорирует застревание коллизии в стенах
+				Vector2 direction = (MazeNextPoint - Position).Normalized();
+				Position += direction * Speed * (float)delta;
+				
+				ReachedMazePoint = false;
+				if (RabbitAnim != null) RabbitAnim.FlipH = direction.X < 0;
+			}
+			else
+			{
+				Position = MazeNextPoint;
+				ReachedMazePoint = true;
+			}
+			return; 
+		}
+
+		// Логика погони вне лабиринта (использует физику)
 		Vector2 velocity = Velocity;
-		Vector2 direction;
-
-		// Вычисление направления движения
-
-		direction.X = Math.Sign(Target.Position.X - this.Position.X);
-		direction.Y = Math.Sign(Target.Position.Y - this.Position.Y);
-		if ((direction != Vector2.Zero) && (chaseState))
+		Vector2 chaseDir = new Vector2(Math.Sign(Target.Position.X - Position.X), Math.Sign(Target.Position.Y - Position.Y));
+		
+		if (chaseDir != Vector2.Zero && chaseState)
 		{
-			velocity.X = direction.X * Speed;
-			velocity.Y = direction.Y * Speed;
+			velocity = chaseDir * Speed;
 		}
 
-		// Отражение спрайта, если требуется
-
-		if ((direction.X < 0) || (Math.Abs(Target.Position.X - this.Position.X) < 10))
+		if (RabbitAnim != null)
 		{
-			RabbitAnim.FlipH = true;
-		}
-		else
-		{
-			RabbitAnim.FlipH = false;
+			RabbitAnim.FlipH = chaseDir.X < 0 || Math.Abs(Target.Position.X - Position.X) < 10;
 		}
 
 		Velocity = velocity;
 		MoveAndSlide();
 	}
 
-	// Метод: вычисление расстояния до игрока
-	private double DistanceToPlayer(Player body)
-	{
-		return Math.Sqrt(Math.Pow(body.Position.X, 2) + Math.Pow(body.Position.Y, 2));
-	}
+	private double DistanceToPlayer(Player body) => Math.Sqrt(Math.Pow(body.Position.X, 2) + Math.Pow(body.Position.Y, 2));
 
-	// Обработка входа тела в зону обнаружения кролика.
 	private void OnBodyEntered(Node body)
 	{
-		if (!(body is CharacterBody2D))
-		{
-			return;
-		}
-
-		if (body is Player)
+		if (body is Player p)
 		{
 			chaseState = true;
-			if (DistanceToPlayer((Player)body) <= DistanceToPlayer(Target))
-			{
-				Target = (Player)body;
-			}
+			if (DistanceToPlayer(p) <= DistanceToPlayer(Target)) Target = p;
 		}
 	}
 
-	// Обработка входа тела в зону взрыва кролика.
 	private void OnBoomEntered(Node body)
 	{
-		if (!(body is CharacterBody2D))
+		if (body is Player p && !isExploiding)
 		{
-			return;
-		}
 
-		if (body is Player)
-		{
-			((Player)body).BunnyTakeDamage(10);
-			isExploiding = true;
+			if (IsInMaze)
+			{
+				p.BunnyTakeDamage(45);
+			}
+			else
+			{
+				p.BunnyTakeDamage(10);
+			}
+
+				isExploiding = true;
 			Death();
 		}
-
 	}
-	// Метод гибели врага
+
 	public async void Death()
 	{
-		Player.Kills = Player.Kills + 1;
+		Player.Kills++;
 		CheckKills();
 
-		RabbitAnim.Play("death");
-		GetNode<AudioStreamPlayer2D>("ShotSound").Play();
+		RabbitAnim?.Play("death");
+		GetNodeOrNull<AudioStreamPlayer2D>("ShotSound")?.Play();
+		_collisionShape?.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 
-		// Отключение коллизии
-
-		_collisionShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
-
-		await ToSignal(RabbitAnim, "animation_finished");
+		if (RabbitAnim != null) await ToSignal(RabbitAnim, "animation_finished");
 
 		Speed += 5.0f;
 		QueueFree();
 	}
 
-	// Метод проверки убитых врагов
 	private void CheckKills()
 	{
 		if (Player.Kills % 5 == 0)
 		{
-			_player.BunnyHeal();
-			if (_player2 != null)
-			{
-				_player2.BunnyHeal();
-			}
+			_player?.BunnyHeal();
+			_player2?.BunnyHeal();
 		}
 	}
 
-	public static void ResetSpeed()
-	{
-		Speed = 100.0f;
-	}
+	public static void ResetSpeed() => Speed = 100.0f;
 
-	// Метод гибели врага от воздействия чего-либо
 	public void VarDeath(Vector2 coord, float radius)
 	{
-		if (coord.DistanceTo(GlobalPosition) < radius)
-		{
-			this.Death();
-		}
+		if (coord.DistanceTo(GlobalPosition) < radius) Death();
 	}
 }

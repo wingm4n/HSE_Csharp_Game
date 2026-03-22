@@ -2,8 +2,9 @@ using Godot;
 
 public partial class Level1 : Node2D
 {
-	private Board _board;
-	private Godot.Label _winLabel;
+	private Board boardNode;
+	private Godot.Label statusLabel;
+	private PackedScene _pauseScene = GD.Load<PackedScene>("res://pause.tscn");
 
 	public override void _Ready()
 	{
@@ -60,5 +61,25 @@ public partial class Level1 : Node2D
 			_winLabel.Visible = true;
 		}
 		SetProcessInput(false);
+	}
+	public override void _Process(double delta)
+	{
+		if (Input.IsActionJustPressed("ui_cancel")) 
+		{
+			// если игра еще не на паузе
+			if (!GetTree().Paused)
+			{
+				PauseGame();
+			}
+		}
+	}
+	private void PauseGame()
+	{
+		// создаем экземпляр меню паузы и добавляем его на экран
+		CanvasLayer pauseInstance = _pauseScene.Instantiate<CanvasLayer>();
+		AddChild(pauseInstance);
+		
+		// cтавим всю игру на паузу 
+		GetTree().Paused = true; 
 	}
 }

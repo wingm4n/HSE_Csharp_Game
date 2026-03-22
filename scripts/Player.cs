@@ -6,6 +6,8 @@ using static Godot.TextServer;
 // Реализация класса игрока
 public partial class Player : CharacterBody2D 
 {
+	private PackedScene _pauseScene = GD.Load<PackedScene>("res://pause.tscn");
+	
 	public const float JumpVelocity = -400.0f;
 	public bool Swap = false;
 	private static int BunnyKills = 0;
@@ -123,6 +125,27 @@ public partial class Player : CharacterBody2D
 		Velocity = velocity;
 		MoveAndSlide();
 
+	}
+	public override void _Process(double delta)
+	{
+		if (Input.IsActionJustPressed("ui_cancel")) 
+		{
+			// если игра еще не на паузе
+			if (!GetTree().Paused)
+			{
+				PauseGame();
+			}
+		}
+	}
+	
+	private void PauseGame()
+	{
+		// создаем экземпляр меню паузы и добавляем его на экран
+		CanvasLayer pauseInstance = _pauseScene.Instantiate<CanvasLayer>();
+		AddChild(pauseInstance);
+		
+		// cтавим всю игру на паузу 
+		GetTree().Paused = true; 
 	}
 
 
