@@ -51,6 +51,7 @@ public partial class Level1 : Node2D
 	private void HandleGameWon()
 	{
 		SetProcessInput(false);
+		GD.Print();
 	}
 	public override void _Process(double delta)
 	{

@@ -17,7 +17,7 @@ public partial class Menu : CanvasLayer
 		{ "Solo_1", "res://level1.tscn" },
 		{ "Solo_2", "res://level2.tscn" },
 		{ "Solo_3", "res://field.tscn" },
-		{ "Duo_1", ""},
+		{ "Duo_1",  "res://level1.tscn" },
 		{ "Duo_2", ""},
 		{ "Duo_3",  "res://field2.tscn" }
 	};
@@ -115,6 +115,9 @@ public partial class Menu : CanvasLayer
 	private void OnPlayPressed()
 	{
 		string key = GetKey();
+		GameState.CurrentMode = _modeSelector.Selected == 0
+		? GameState.Mode.Solo
+		: GameState.Mode.Duo;
 		if (_scenes.TryGetValue(key, out string path))
 		{
 			GetTree().ChangeSceneToFile(path);
