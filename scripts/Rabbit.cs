@@ -94,8 +94,17 @@ public partial class Rabbit : CharacterBody2D
 	{
 		if (body is Player p && !isExploiding)
 		{
-			p.BunnyTakeDamage(10);
-			isExploiding = true;
+
+			if (IsInMaze)
+			{
+				p.BunnyTakeDamage(45);
+			}
+			else
+			{
+				p.BunnyTakeDamage(10);
+			}
+
+				isExploiding = true;
 			Death();
 		}
 	}

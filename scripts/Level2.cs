@@ -76,10 +76,15 @@ public class LabyrinthGenerator
 public partial class Level2 : Node2D
 {
 	[Export] private TileMapLayer _tileMap;
-	[Export] public PackedScene RabbitScene; 
-	
+	[Export] public PackedScene RabbitScene;
+	[Export] public Player _player;
+	[Export] public Node2D _key;
+
 	public int[,] _labyrinthMap;
 	private int _mazeWidth = 21;
+	private Vector2I keyPos;
+	private Vector2I gatePos;
+	private bool keyReady = false;
 
 	private List<Rabbit> _rabbits = new List<Rabbit>();
 	private List<Vector2I> _rabbitDirections = new List<Vector2I>();
@@ -88,26 +93,39 @@ public partial class Level2 : Node2D
 	{
 		_tileMap = GetNode<TileMapLayer>("Node2D/Layer0");
 		_tileMap.TileSet.TileSize = new Vector2I(16, 16);
+		_player = GetTree().Root.FindChild("Player", true, false) as Player;
+		_key = GetTree().Root.FindChild("Key", true, false) as Node2D;
 		CallDeferred(nameof(GenerateLabyrinth), _mazeWidth);
 	}
 
 	public void GenerateLabyrinth(int width)
 	{
 		var generator = new LabyrinthGenerator();
-		_labyrinthMap = generator.Generate(width);
-		
+		// _labyrinthMap = generator.Generate(width);
+		var map = generator.Generate(width);
+		var map2 = generator.Generate(width + 2);
+		for (int i = 0; i < width - 1; i++)
+		{
+			for (int j = 0; j < width - 1; j++)
+			{
+				map[i, j] = map[i, j] * map2[i, j];
+			}
+		}
+		_labyrinthMap = map;
+
 		_tileMap.Clear();
 		List<Vector2I> floorCells = new List<Vector2I>();
+		Random rnd = new Random();
 
 		for (int x = 0; x < width; x++)
 		{
 			for (int y = 0; y < width; y++)
 			{
 				if (_labyrinthMap[x, y] == 1) 
-					_tileMap.SetCell(new Vector2I(x, y), 0, new Vector2I(3, 3));
+					_tileMap.SetCell(new Vector2I(x, y), 2, new Vector2I(rnd.Next(0, 4), rnd.Next(0,4)));
 				else 
 				{
-					_tileMap.SetCell(new Vector2I(x, y), 1, Vector2I.Zero);
+					_tileMap.SetCell(new Vector2I(x, y), 0, new Vector2I(15, 15));
 					floorCells.Add(new Vector2I(x, y));
 				}
 			}
@@ -117,8 +135,7 @@ public partial class Level2 : Node2D
 
 		if (RabbitScene != null && floorCells.Count > 5)
 		{
-			Random rnd = new Random();
-			for (int i = 0; i < 3; i++)
+			for (int i = 0; i < 10; i++)
 			{
 				int idx = rnd.Next(floorCells.Count);
 				Vector2I cell = floorCells[idx];
@@ -139,10 +156,51 @@ public partial class Level2 : Node2D
 				_rabbitDirections.Add(Vector2I.Zero); // На старте направления нет
 			}
 		}
+
+		// Add key
+		int si = rnd.Next(0, width / 2) * 2 + 1;
+		int sj = rnd.Next(0, width / 2) * 2 + 1;
+		while (_labyrinthMap[si, sj] != 0)
+		{
+			si = rnd.Next(0, width / 2) * 2 + 1;
+			sj = rnd.Next(0, width / 2) * 2 + 1;
+		}
+		_labyrinthMap[si, sj] = 2;
+		keyPos = new Vector2I(si, sj);
+		_tileMap.SetCell(keyPos, 8, new Vector2I(0, 0));
+
+		// Add exit
+		si = rnd.Next(0, width / 2) * 2 + 1;
+		sj = rnd.Next(0, width / 2) * 2 + 1;
+		while (_labyrinthMap[si, sj] != 0)
+		{
+			si = rnd.Next(0, width / 2) * 2 + 1;
+			sj = rnd.Next(0, width / 2) * 2 + 1;
+		}
+		_labyrinthMap[si, sj] = 3;
+		gatePos = new Vector2I(si, sj);
+		_tileMap.SetCell(gatePos, 3, new Vector2I(0, 3));
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
+
+		Vector2 globalKeyPos = _tileMap.ToGlobal(_tileMap.MapToLocal(keyPos));
+		if (globalKeyPos.DistanceTo(_player.Position) < 30)
+		{
+			_key.Visible = true;
+			keyReady = true;
+			_labyrinthMap[keyPos.X, keyPos.Y] = 0;
+			_tileMap.SetCell(keyPos, 0, new Vector2I(15, 15));
+
+		}
+
+		Vector2 globalGatePos = _tileMap.ToGlobal(_tileMap.MapToLocal(gatePos));
+		if (globalGatePos.DistanceTo(_player.Position) < 30 && keyReady)
+		{
+			GD.Print("WIN WIN");
+		}
+
 		for (int i = _rabbits.Count - 1; i >= 0; i--)
 		{
 			Rabbit r = _rabbits[i];
