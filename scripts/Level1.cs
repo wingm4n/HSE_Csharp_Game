@@ -2,18 +2,13 @@ using Godot;
 
 public partial class Level1 : Node2D
 {
-	private Board boardNode;
+	private Board _board;
 	private Godot.Label statusLabel;
 	private PackedScene _pauseScene = GD.Load<PackedScene>("res://pause.tscn");
 
 	public override void _Ready()
 	{
 		_board = GetNode<Board>("Board");
-		_winLabel = GetTree().Root.FindChild("WinLabel", true, false) as Godot.Label;
-
-		if (_winLabel != null)
-			_winLabel.Visible = false;
-
 		_board.OnGameWon += HandleGameWon;
 	}
 
@@ -55,11 +50,6 @@ public partial class Level1 : Node2D
 
 	private void HandleGameWon()
 	{
-		if (_winLabel != null)
-		{
-			_winLabel.Text    = "YOU WIN!";
-			_winLabel.Visible = true;
-		}
 		SetProcessInput(false);
 	}
 	public override void _Process(double delta)
