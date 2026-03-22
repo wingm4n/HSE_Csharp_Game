@@ -18,7 +18,7 @@ public partial class Menu : CanvasLayer
 		{ "Solo_2", "res://level2.tscn" },
 		{ "Solo_3", "res://field.tscn" },
 		{ "Duo_1",  "res://level1.tscn" },
-		{ "Duo_2", ""},
+		{ "Duo_2",  "res://level2_duo.tscn"},
 		{ "Duo_3",  "res://field2.tscn" }
 	};
 

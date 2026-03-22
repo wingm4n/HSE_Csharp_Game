@@ -1,4 +1,4 @@
-﻿using Godot;
+using Godot;
 using System;
 
 // Author: Korostelev A.
@@ -10,7 +10,7 @@ public partial class Camera : Camera2D
 
 	[Export] private float _baseZoom = 1.4f;
 	[Export] private float _zoomPerDistance = -0.00045f;
-	[Export] private float _minZoom = 0.3f;
+	[Export] private float _minZoom = 0.55f;
 	[Export] private float _maxZoom = 3.0f;
 	public override void _Ready()
 	{
