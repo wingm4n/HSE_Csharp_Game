@@ -155,6 +155,7 @@ position = Vector2(43, -423)
 [node name="Rabbit4" parent="." instance=ExtResource("3_oi3di")]
 visible = false
 position = Vector2(545, -43)
+
 [node name="Hat" parent="." instance=ExtResource("5_f2txt")]
 position = Vector2(-792, -482)
 _rabbitScene = ExtResource("3_oi3di")

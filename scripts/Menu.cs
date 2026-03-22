@@ -9,13 +9,13 @@ public partial class Menu : Node2D
 	{
 		Button _quit = GetNode<Button>("Quit");
 		_quit.Connect(Quit.SignalName.Pressed, Callable.From(MenuQuitPressed));
-		Button _play = GetNode<Button>("Play");
+		Button _play = GetNode<Button>("PlaySolo3");
 		_play.Connect(Quit.SignalName.Pressed, Callable.From(MenuPlayPressed));
-		Button _playDuo = GetNode<Button>("PlayDuo");
+		Button _playDuo = GetNode<Button>("PlayDuo3");
 		_playDuo.Connect(Quit.SignalName.Pressed, Callable.From(MenuPlayDuoPressed));
-		Button _play1 = GetNode<Button>("Play1");
+		Button _play1 = GetNode<Button>("PlaySolo1");
 		_play1.Connect(Quit.SignalName.Pressed, Callable.From(MenuPlay1Pressed));
-		Button _play2 = GetNode<Button>("Play2");
+		Button _play2 = GetNode<Button>("PlaySolo2");
 		_play2.Connect(Quit.SignalName.Pressed, Callable.From(MenuPlay2Pressed));
 	}
 
