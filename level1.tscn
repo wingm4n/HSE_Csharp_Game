@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://svwymgxyty2h"]
 
-[ext_resource type="Script" uid="uid://corb0uajrui0g" path="res://scripts/Level1.cs" id="1_dopym"]
-[ext_resource type="Script" uid="uid://bqony5pq4gg2i" path="res://scripts/Board.cs" id="2_ootpb"]
+[ext_resource type="Script" uid="uid://dtfkrw2provbv" path="res://scripts/Level1.cs" id="1_dopym"]
+[ext_resource type="Script" uid="uid://c0bx5bntlg8sd" path="res://scripts/Board.cs" id="2_ootpb"]
 [ext_resource type="AudioStream" uid="uid://bloc0vb7gkv73" path="res://audio game/Pixelland.ogg" id="11_nxqqj"]
 
 [sub_resource type="TileSet" id="TileSet_6e7u2"]
@@ -10,18 +10,26 @@ tile_shape = 3
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_dopym")
 
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -3585.0
+offset_top = -2107.0
+offset_right = 3564.0
+offset_bottom = 2645.0
+stretch_mode = 1
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -2.0
+offset_top = -1.0
+offset_right = 4403.0
+offset_bottom = 2476.0
+color = Color(0.29307848, 0.58370626, 0.94513303, 1)
+
 [node name="Board" type="Node2D" parent="."]
 position = Vector2(50, 50)
 script = ExtResource("2_ootpb")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="Board"]
 tile_set = SubResource("TileSet_6e7u2")
-
-[node name="UI" type="CanvasLayer" parent="."]
-
-[node name="StatusLabel" type="Label" parent="UI"]
-offset_right = 40.0
-offset_bottom = 23.0
 
 [node name="ClickPlayer" type="AudioStreamPlayer" parent="."]
 

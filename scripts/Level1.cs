@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class Level1 : Node2D
 {
@@ -9,34 +8,59 @@ public partial class Level1 : Node2D
 
 	public override void _Ready()
 	{
-		boardNode = GetNode<Board>("Board");
-		statusLabel = GetNode<Godot.Label>("UI/StatusLabel");
-		statusLabel.Text = "Mode: Solo";
+		_board = GetNode<Board>("Board");
+		_winLabel = GetTree().Root.FindChild("WinLabel", true, false) as Godot.Label;
+
+		if (_winLabel != null)
+			_winLabel.Visible = false;
+
+		_board.OnGameWon += HandleGameWon;
 	}
 
 	public override void _Input(InputEvent @event)
 	{
-	if (@event is InputEventKey keyEvent && keyEvent.Pressed)
-	{
-		Vector2I dir = new Vector2I(0, 0);
-
-		// solo
-		if (keyEvent.Keycode == Key.W) dir = new Vector2I(0, 1);
-		if (keyEvent.Keycode == Key.S) dir = new Vector2I(0, -1);
-		if (keyEvent.Keycode == Key.A) dir = new Vector2I(1, 0);
-		if (keyEvent.Keycode == Key.D) dir = new Vector2I(-1, 0);
-
-		// duo
-		if (keyEvent.Keycode == Key.Up) dir = new Vector2I(0, 1);
-		if (keyEvent.Keycode == Key.Down) dir = new Vector2I(0, -1);
-		if (keyEvent.Keycode == Key.Left) dir = new Vector2I(1, 0);
-		if (keyEvent.Keycode == Key.Right) dir = new Vector2I(-1, 0);
-
-		if (dir != new Vector2I(0, 0))
+		if (@event is InputEventKey keyEvent && keyEvent.Pressed)
 		{
-			boardNode.MoveTile(dir);
+			Vector2I dir = GetDirection(keyEvent.Keycode);
+			if (dir != Vector2I.Zero)
+				_board.MoveTile(dir);
 		}
 	}
+
+	private Vector2I GetDirection(Key key)
+	{
+		if (GameState.CurrentMode == GameState.Mode.Solo)
+		{
+			return key switch
+			{
+				Key.W => new Vector2I(0,  1),
+				Key.S => new Vector2I(0, -1),
+				Key.A => new Vector2I(1,  0),
+				Key.D => new Vector2I(-1, 0),
+				_     => Vector2I.Zero
+			};
+		}
+		else
+		{
+			return key switch
+			{
+				Key.W     => new Vector2I(0,  1),
+				Key.S     => new Vector2I(0, -1),
+				Key.Left  => new Vector2I(1,  0),
+				Key.Right => new Vector2I(-1, 0),
+				_         => Vector2I.Zero
+			};
+		}
+	}
+
+	private void HandleGameWon()
+	{
+		if (_winLabel != null)
+		{
+			_winLabel.Text    = "YOU WIN!";
+			_winLabel.Visible = true;
+		}
+		SetProcessInput(false);
 	}
 	public override void _Process(double delta)
 	{
