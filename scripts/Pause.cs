@@ -3,7 +3,7 @@ using System;
 
 public partial class Pause : CanvasLayer
 {
-	private const float ScaleFactor = 1.1f; //настройки анимации
+	private const float ScaleFactor = 1.1f; 
 	private const float AnimTime = 0.15f;
 	public override void _Ready()
 	{
@@ -25,6 +25,8 @@ public partial class Pause : CanvasLayer
 	}
 	private void ConnectButtonHover(Button button)
 	{
+		button.SetMeta("no_container_sizing", true);
+		button.PivotOffset = button.Size / 2;
 		button.Connect(Button.SignalName.MouseEntered, Callable.From(() => OnButtonHovered(button)));
 		button.Connect(Button.SignalName.MouseExited, Callable.From(() => OnButtonUnhovered(button)));
 		button.Connect(Button.SignalName.FocusEntered, Callable.From(() => OnButtonHovered(button)));
@@ -50,8 +52,9 @@ public partial class Pause : CanvasLayer
 
 	private void ToMenuPressed()
 	{
-		// перед сменой сцены снимаем игру с паузы
 		GetTree().Paused = false; 
+		Player.ResetKills();
+		Rabbit.ResetSpeed();
 		
 		GetTree().ChangeSceneToFile("res://menu.tscn"); 
 	}
@@ -66,9 +69,8 @@ public partial class Pause : CanvasLayer
 	private void RestartPressed()
 	{
 		GetTree().Paused = false;
-		// перезапуск текущей сцены
+		Player.ResetKills();
+		Rabbit.ResetSpeed();
 		GetTree().ReloadCurrentScene();
-
-		QueueFree();
 	}
 }
