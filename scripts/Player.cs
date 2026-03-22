@@ -43,7 +43,6 @@ public partial class Player : CharacterBody2D
 		if (BunnyHealth <= 0)
 		{
 			BunnyHealth = 0;
-			GetTree().Paused = true;
 		}
 		UpdateHPColor();
 	}

@@ -81,6 +81,9 @@ public partial class Level2 : Node2D
 	[Export] public Player _player2;
 	[Export] public Node2D _key;
 	[Export] public Node2D _key2;
+	
+	private PackedScene _pauseScene = GD.Load<PackedScene>("res://pause.tscn");
+	private bool _isLevelFinished = false;
 
 	public int[,] _labyrinthMap;
 	private int _mazeWidth = 21;
@@ -185,10 +188,18 @@ public partial class Level2 : Node2D
 		gatePos = new Vector2I(si, sj);
 		_tileMap.SetCell(gatePos, 3, new Vector2I(0, 3));
 	}
-
+	
 	public override void _PhysicsProcess(double delta)
 	{
-
+		if (_isLevelFinished) return;
+		
+		if (_player != null && _player.Health <= 0)
+		{
+			_isLevelFinished = true;
+			ShowEndScreen(false);
+			return;
+		}
+		
 		Vector2 globalKeyPos = _tileMap.ToGlobal(_tileMap.MapToLocal(keyPos));
 		if (globalKeyPos.DistanceTo(_player.Position) < 30 && !keyReady)
 		{
@@ -214,7 +225,11 @@ public partial class Level2 : Node2D
 		if (globalGatePos.DistanceTo(_player.Position) < 65 && keyReady)
 		{
 			if (_player2 == null || globalGatePos.DistanceTo(_player2.Position) < 65)
-				GD.Print("WIN WIN");
+			{
+				_isLevelFinished = true;
+				ShowEndScreen(true);
+				return;
+			}
 		}
 
 		for (int i = _rabbits.Count - 1; i >= 0; i--)
@@ -256,5 +271,17 @@ public partial class Level2 : Node2D
 				}
 			}
 		}
+	}
+	private void ShowEndScreen(bool isVictory)
+	{
+		Pause pauseInstance = _pauseScene.Instantiate<Pause>();
+		AddChild(pauseInstance);
+		
+		if (isVictory)
+			pauseInstance.SetVictoryMode();
+		else
+			pauseInstance.SetGameOverMode();
+
+		GetTree().Paused = true;
 	}
 }
