@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://svwymgxyty2h"]
 
-[ext_resource type="Script" uid="uid://corb0uajrui0g" path="res://scripts/Level1.cs" id="1_dopym"]
-[ext_resource type="Script" uid="uid://bqony5pq4gg2i" path="res://scripts/Board.cs" id="2_ootpb"]
+[ext_resource type="Script" uid="uid://dtfkrw2provbv" path="res://scripts/Level1.cs" id="1_dopym"]
+[ext_resource type="Script" uid="uid://c0bx5bntlg8sd" path="res://scripts/Board.cs" id="2_ootpb"]
 [ext_resource type="AudioStream" uid="uid://bloc0vb7gkv73" path="res://audio game/Pixelland.ogg" id="11_nxqqj"]
 
 [sub_resource type="TileSet" id="TileSet_6e7u2"]
@@ -30,17 +30,6 @@ script = ExtResource("2_ootpb")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="Board"]
 tile_set = SubResource("TileSet_6e7u2")
-
-[node name="UI" type="CanvasLayer" parent="."]
-follow_viewport_enabled = true
-
-[node name="WinLabel" type="Label" parent="UI"]
-offset_right = 1.0
-offset_bottom = 137.0
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 150
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="ClickPlayer" type="AudioStreamPlayer" parent="."]
 
