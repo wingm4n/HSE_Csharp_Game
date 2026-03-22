@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://svwymgxyty2h"]
 
-[ext_resource type="Script" path="res://scripts/Level1.cs" id="1_dopym"]
-[ext_resource type="Script" path="res://scripts/Board.cs" id="2_ootpb"]
+[ext_resource type="Script" uid="uid://corb0uajrui0g" path="res://scripts/Level1.cs" id="1_dopym"]
+[ext_resource type="Script" uid="uid://bqony5pq4gg2i" path="res://scripts/Board.cs" id="2_ootpb"]
 [ext_resource type="AudioStream" uid="uid://bloc0vb7gkv73" path="res://audio game/Pixelland.ogg" id="11_nxqqj"]
 
 [sub_resource type="TileSet" id="TileSet_6e7u2"]
