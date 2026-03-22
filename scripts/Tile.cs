@@ -11,7 +11,7 @@ public partial class Tile : Node2D
 	public Vector2I GridPos;
 	public bool IsEmpty = false;
 
-	private static readonly Color ColorNormal = new Color(0.6f, 0.82f, 0.94f);
+	private static readonly Color ColorNormal = new Color(0.6f, 0.82f, 0.94f, 0.25f);
 	private static readonly Color ColorEmpty  = new Color(0, 0, 0, 0);
 	private static readonly Color ColorText   = new Color(1f, 1f, 1f);
 
@@ -35,8 +35,8 @@ public partial class Tile : Node2D
 		label.HorizontalAlignment = HorizontalAlignment.Center;
 		label.VerticalAlignment   = VerticalAlignment.Center;
 		label.AddThemeColorOverride("font_color", ColorText);
-		label.AddThemeFontSizeOverride("font_size", 120);
-		label.AddThemeConstantOverride("outline_size", 3);
+		label.AddThemeFontSizeOverride("font_size", 160);
+		label.AddThemeConstantOverride("outline_size", 5);
 		label.AddThemeColorOverride("font_outline_color", new Color(0f, 0f, 0f));
 		AddChild(label);
 	}
