@@ -28,22 +28,22 @@ public partial class Level1 : Node2D
 		{
 			return key switch
 			{
-				Key.W => new Vector2I(0,  1),
+				Key.W => new Vector2I(0, 1),
 				Key.S => new Vector2I(0, -1),
-				Key.A => new Vector2I(1,  0),
+				Key.A => new Vector2I(1, 0),
 				Key.D => new Vector2I(-1, 0),
-				_     => Vector2I.Zero
+				_ => Vector2I.Zero
 			};
 		}
 		else
 		{
 			return key switch
 			{
-				Key.W     => new Vector2I(0,  1),
-				Key.S     => new Vector2I(0, -1),
-				Key.Left  => new Vector2I(1,  0),
+				Key.W => new Vector2I(0, 1),
+				Key.S => new Vector2I(0, -1),
+				Key.Left => new Vector2I(1, 0),
 				Key.Right => new Vector2I(-1, 0),
-				_         => Vector2I.Zero
+				_ => Vector2I.Zero
 			};
 		}
 	}
@@ -51,26 +51,30 @@ public partial class Level1 : Node2D
 	private void HandleGameWon()
 	{
 		SetProcessInput(false);
-		GD.Print();
+		if (!GetTree().Paused)
+		{
+			Pause pauseInstance = _pauseScene.Instantiate<Pause>(); 
+			AddChild(pauseInstance);
+			pauseInstance.SetVictoryMode(); 
+			GetTree().Paused = true;
+		}
 	}
+
 	public override void _Process(double delta)
 	{
-		if (Input.IsActionJustPressed("ui_cancel")) 
+		if (Input.IsActionJustPressed("ui_cancel")) 
 		{
-			// если игра еще не на паузе
 			if (!GetTree().Paused)
 			{
 				PauseGame();
 			}
 		}
 	}
+
 	private void PauseGame()
 	{
-		// создаем экземпляр меню паузы и добавляем его на экран
 		CanvasLayer pauseInstance = _pauseScene.Instantiate<CanvasLayer>();
 		AddChild(pauseInstance);
-		
-		// cтавим всю игру на паузу 
-		GetTree().Paused = true; 
+		GetTree().Paused = true; 
 	}
 }
